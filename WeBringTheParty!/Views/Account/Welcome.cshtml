@@ -1,0 +1,10 @@
+﻿
+@{
+}
+
+<h1>Welcome!</h1>
+<p>You are logged in as: <strong>@ViewBag.Username</strong></p>
+
+<form asp-controller="Account" asp-action="Logout" method="post">
+    <button type="submit">Logout</button>
+</form>
