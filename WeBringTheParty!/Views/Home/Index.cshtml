@@ -1,8 +1,17 @@
-﻿@{
+﻿@model WeBringTheParty_.Models.LoginViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Login</h2>
+
+<form asp-controller="Account" asp-action="Login" method="post">
+    <label>Username:</label>
+    <input asp-for="Username" />
+
+    <label>Password:</label>
+    <input asp-for="Password" type="password" />
+
+    <button type="submit">Login</button>
+</form>
