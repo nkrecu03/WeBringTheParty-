@@ -22,6 +22,11 @@ namespace DataAccessLayer.Interfaces
         {
             return await userDbContext.Users.ToListAsync();
         }
+        public async Task CreateUserAsync(UserModel user)
+        {
+            await userDbContext.Users.AddAsync(user);
+            await userDbContext.SaveChangesAsync();
+        }
 
     }
 }

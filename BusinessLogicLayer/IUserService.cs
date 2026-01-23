@@ -11,6 +11,7 @@ namespace BusinessLogicLayer
     public interface IUserService
     {
         Task<IEnumerable<UserModel>> GetUsersAsync();
-        
+        Task CreateUserAsync(UserModel user);
+
     }
 }

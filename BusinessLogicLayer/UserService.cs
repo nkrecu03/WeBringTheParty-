@@ -20,5 +20,10 @@ namespace BusinessLogicLayer
         {
             return await userRepository.GetUsersAsync();
         }
+
+        public async Task CreateUserAsync(UserModel user)
+        {
+            await userRepository.CreateUserAsync(user);
+        }
     }
 }
