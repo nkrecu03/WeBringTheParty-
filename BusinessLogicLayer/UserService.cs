@@ -25,5 +25,10 @@ namespace BusinessLogicLayer
         {
             await userRepository.CreateUserAsync(user);
         }
+
+        public async Task<UserModel> LoginAsync(string email, string password)
+        {
+            return await userRepository.GetLoginInfoAsync(email, password);
+        }
     }
 }

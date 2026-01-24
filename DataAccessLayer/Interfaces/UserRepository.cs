@@ -28,5 +28,11 @@ namespace DataAccessLayer.Interfaces
             await userDbContext.SaveChangesAsync();
         }
 
+        public async Task<UserModel> GetLoginInfoAsync(string email, string password)
+        {
+            return await userDbContext.Users
+                .FirstOrDefaultAsync(u => u.EmailAddress == email && u.Password == password);
+        }
+
     }
 }

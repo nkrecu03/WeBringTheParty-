@@ -12,6 +12,7 @@ namespace BusinessLogicLayer
     {
         Task<IEnumerable<UserModel>> GetUsersAsync();
         Task CreateUserAsync(UserModel user);
+        Task<UserModel> LoginAsync(string email, string password);
 
     }
 }
