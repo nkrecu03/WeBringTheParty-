@@ -22,6 +22,17 @@ namespace DataAccessLayer.Interfaces
         {
             return await userDbContext.Users.ToListAsync();
         }
+        public async Task CreateUserAsync(UserModel user)
+        {
+            await userDbContext.Users.AddAsync(user);
+            await userDbContext.SaveChangesAsync();
+        }
+
+        public async Task<UserModel> GetLoginInfoAsync(string email, string password)
+        {
+            return await userDbContext.Users
+                .FirstOrDefaultAsync(u => u.EmailAddress == email && u.Password == password);
+        }
 
     }
 }

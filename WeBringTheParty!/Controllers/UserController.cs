@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using DataAccessLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WeBringTheParty_.Controllers
@@ -15,6 +16,19 @@ namespace WeBringTheParty_.Controllers
         {
             var users = await userService.GetUsersAsync();
             return View(users);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(UserModel createdUser)
+        {
+            await userService.CreateUserAsync(createdUser);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -10,5 +10,7 @@ namespace DataAccessLayer.Interfaces
     public interface IUserRepository
     {
         Task<IEnumerable<UserModel>> GetUsersAsync();
+        Task CreateUserAsync(UserModel user);
+        Task<UserModel> GetLoginInfoAsync(string email, string password);
     }
 }
