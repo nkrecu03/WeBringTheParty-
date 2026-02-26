@@ -11,27 +11,27 @@ namespace DataAccessLayer.Interfaces
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserDbContext userDbContext;
-        public UserRepository(UserDbContext userDbContext)
+        private readonly AppDbContext appDbContext;
+        public UserRepository(AppDbContext appDbContext)
         {
-            this.userDbContext = userDbContext;
+            this.appDbContext = appDbContext;
             
         }
 
         public async Task<IEnumerable<UserModel>> GetUsersAsync()
         {
-            return await userDbContext.Users.ToListAsync();
+            return await appDbContext.Users.ToListAsync();
         }
         public async Task CreateUserAsync(UserModel user)
         {
-            await userDbContext.Users.AddAsync(user);
-            await userDbContext.SaveChangesAsync();
+            await appDbContext.Users.AddAsync(user);
+            await appDbContext.SaveChangesAsync();
         }
 
         public async Task<UserModel> GetLoginInfoAsync(string email, string password)
         {
-            return await userDbContext.Users
-                .FirstOrDefaultAsync(u => u.EmailAddress == email && u.Password == password);
+            return await appDbContext.Users
+                .FirstOrDefaultAsync(u => u.EmailAddress == email && u.PasswordHash == password);
         }
 
     }
