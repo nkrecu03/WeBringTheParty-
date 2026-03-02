@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data
 {
-    public class ProductDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public ProductDbContext(DbContextOptions<ProductDbContext> options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
              : base(options) { }
+        public DbSet<UserModel> Users { get; set; }
         public DbSet<ProductModel> Products { get; set; }
+        public DbSet<CartModel> Carts { get; set; }
+        public DbSet<CartItemModel> CartItems { get; set; }
 
     }
 }

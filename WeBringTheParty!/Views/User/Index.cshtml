@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.userID)
+                @Html.DisplayNameFor(model => model.UserID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
+                @Html.DisplayNameFor(model => model.PasswordHash)
             </th>
             <th></th>
         </tr>
@@ -37,7 +37,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.userID)
+                @Html.DisplayFor(modelItem => item.UserID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
+                @Html.DisplayFor(modelItem => item.PasswordHash)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<UserDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("WeBringThePartyConnectionString"),
         sqlOptions =>
@@ -19,16 +19,6 @@ builder.Services.AddDbContext<UserDbContext>(options =>
                 errorNumbersToAdd: null);
         }));
 
-builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("WeBringThePartyConnectionString"),
-        sqlOptions =>
-        {
-            sqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 5,
-                maxRetryDelay: TimeSpan.FromSeconds(30),
-                errorNumbersToAdd: null);
-        }));
 
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();

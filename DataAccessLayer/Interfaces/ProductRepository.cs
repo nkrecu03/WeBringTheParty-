@@ -11,16 +11,16 @@ namespace DataAccessLayer.Interfaces
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ProductDbContext productDbContext;
-        public ProductRepository(ProductDbContext productDbContext)
+        private readonly AppDbContext appDbContext;
+        public ProductRepository(AppDbContext appDbContext)
         {
-            this.productDbContext = productDbContext;
+            this.appDbContext = appDbContext;
 
         }
 
         public async Task<IEnumerable<ProductModel>> GetProductsAsync()
         {
-            return await productDbContext.Products.ToListAsync();
+            return await appDbContext.Products.ToListAsync();
         }
 
     }
