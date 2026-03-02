@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var role = Context.Session.GetString("Role");
+    var firstName = Context.Session.GetString("FirstName");
+}
+
+<header>
+    <!-- Top bar -->
+    <div class="top-bar d-flex justify-content-between align-items-center p-2">
+        <!-- Left Corner Site Name -->
+        <div class="col-md-6 d-flex">
+            <img src="~/images/drawn_logo.png" alt="Sign Up" class="img-fluid logo">
+            
+        </div>
+    
+    <!-- Right-side buttons change depending on login -->
+    <div class="auth-buttons d-flex align-items-center">
+        @if (string.IsNullOrEmpty(firstName))
+        {
+            <!-- Not logged in -->
+            <a class="btn btn-outline-light me-2" asp-controller="Account" asp-action="Login">Login</a>
+            <a class="btn btn-light" asp-controller="User" asp-action="CreateUser">Sign Up</a>
+        }
+        else
+        {
+            <!-- Logged in -->
+            <span class="text-white me-3">Hello, @firstName!</span>
+            <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                <button type="submit" class="btn btn-link text-white" style="display:inline; padding:0;">Logout</button>
+            </form>
+
+            @* Show admin dashboard link if user is admin *@
+            @if (role == "Admin")
+            {
+                <a class="btn btn-outline-warning ms-3" asp-controller="Admin" asp-action="Dashboard">Admin Dashboard</a>
+            }
+        }
+        </div>
+    </div>
+   
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
+
+        <div class="container-fluid">
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark"
+                           asp-controller="Product"
+                           asp-action="Index">
+                            Product Index
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>

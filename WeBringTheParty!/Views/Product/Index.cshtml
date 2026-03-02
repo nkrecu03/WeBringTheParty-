@@ -2,6 +2,18 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    <!--if someone is logged in as admin, when you open the product index you see the admin nav panel -->
+    var role = Context.Session.GetString("Role");
+
+    if (role == "Admin")
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
 <h1>Index</h1>

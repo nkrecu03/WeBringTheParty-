@@ -28,7 +28,12 @@ namespace WeBringTheParty_.Controllers
         public async Task<IActionResult> CreateUser(UserModel createdUser)
         {
             await userService.CreateUserAsync(createdUser);
-            return RedirectToAction("Index");
+
+            // set session
+            HttpContext.Session.SetString("FirstName", createdUser.FirstName);
+            HttpContext.Session.SetString("Role", createdUser.Role ?? "Customer"); 
+
+            return RedirectToAction("Welcome", "Account");
         }
     }
 }

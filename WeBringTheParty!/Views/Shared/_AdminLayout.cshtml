@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid admin-container">
+        <div class="row min-vh-100">
+
+            <!-- LEFT SIDEBAR -->
+            <div class="col-3 col-md-2 bg-dark text-white p-3">
+                <h4>Admin Panel</h4>
+                <hr />
+
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white"
+                           asp-controller="Admin"
+                           asp-action="Dashboard">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white"
+                           asp-controller="Product"
+                           asp-action="Index">
+                            Manage Products
+                        </a>
+                    </li>
+
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white"
+                           asp-controller="User"
+                           asp-action="Index">
+                            View Users
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- RIGHT MAIN CONTENT -->
+            <div class="col-9 col-md-10 p-4">
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+

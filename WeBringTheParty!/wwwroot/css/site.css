@@ -16,7 +16,168 @@ html {
   position: relative;
   min-height: 100%;
 }
-
-body {
-  margin-bottom: 60px;
+.header-image-container {
+    width: 100%; /* full width of the screen */
+    overflow: hidden; /* hides any part of image that overflows */
+    height: 600px; /* banner height, adjust as needed */
+    margin: 0;
+    padding: 0;
 }
+
+.top-bar {
+    position: fixed; /* or use 'fixed' if you want it always visible */
+    top: 0;
+    z-index: 1050;
+    background-color: rgba(155, 210, 203) !important;
+    width: 100%;
+    padding: 8px 20px;
+}
+
+.logo {
+    flex: 0 0 auto;
+    height: 100px;
+    width: auto;/* prevents flex-grow */
+
+}
+
+.logo-video {
+    height: 100px;
+    width: auto;
+}
+/* <div class="site-logo">
+            <a href="/">
+                <video id="logoAnimation" class="logo-video" autoplay muted playsinline preload="auto">
+                    <source src="~/videos/WE BRING.mp4" type="video/mp4">
+                </video>
+            </a>
+        </div>*/
+
+
+.header-image {
+    width: 100% ; /* spans full width */
+    height: 100%; /* fill the container height */
+    object-fit: cover; /* crop to fit container without distortion */
+    display: block; /* removes default inline spacing */
+}
+
+.navbar {
+    background-color: #C2E3DF !important;
+    position: fixed;
+    top: 110px;
+    width: 100% !important;
+}
+
+.page-content {
+    margin-left: 45px; /* space from left edge */
+    margin-right: 45px; /* optional, for symmetry */
+    margin-top: 190px;
+    margin-bottom: 150px;
+}
+
+.admin-container {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+
+
+
+
+
+/*CREATE USER VIEW CSS*/
+
+/*container for 2 main columns*/
+.create-account-wrapper {
+    display: flex;
+    gap: 1.5rem; /* space between image and form */
+    margin: 0 auto;
+}
+
+/* image */
+.create-form-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
+}
+
+/* entire left column container */
+.image-container {
+    position: relative; /* allows absolute positioning inside */
+}
+
+/* text on image */
+.party-text {
+    position: absolute; /* sits on top of image */
+    top: 450px; /* distance from top */
+
+    color: #27113F; /* text color */
+    font-size: 1.5rem; /* adjust as needed */
+    left: 120px;
+}
+
+/* right column entire card container */
+.create-user-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #fff; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* field label in each text box */
+.form-floating > label {
+    color: #aaa;
+    font-size: 1rem; /* size before floating */
+}
+
+/* user input text */
+.form-floating .form-control:focus ~ label {
+    color: #333;
+}
+
+/* each field box (round) */
+.form-input .form-control {
+    border-radius: 50px;
+    height: auto;
+}
+
+/* misc text inside card */
+.create-account-text {
+    color: #27113F;
+    margin-bottom: 25px;
+}
+.personal-info {
+    font-size: 1rem;
+    margin-left: 7px;
+    margin-top: 50px;
+    color: #27113F;
+}
+
+.password-text {
+    margin-top: 50px;
+    font-size: 1rem;
+    margin-left: 7px;
+    color: #27113F;
+}
+
+.password-specs {
+    color: #555; /* medium gray */
+    font-size: 0.875rem; /* slightly smaller than normal text */
+    text-align: center; /* center under the form */
+}
+
+/* submit button */
+.create-account-btn {
+    background-color: #27113F;
+    border-color: #27113F;
+    color: white; 
+    transition: background-color 0.3s; 
+}
+
+    .create-account-btn:hover {
+        background-color: #7e62b5; /* new color on hover */
+        border-color: #7e62b5;
+    }
