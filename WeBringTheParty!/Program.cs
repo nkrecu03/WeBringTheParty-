@@ -1,6 +1,7 @@
 using BusinessLogicLayer;
 using DataAccessLayer.Data;
 using DataAccessLayer.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
+
 
 builder.Services.AddDistributedMemoryCache(); // required for session
 builder.Services.AddSession(options =>

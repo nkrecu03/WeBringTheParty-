@@ -12,10 +12,12 @@ namespace BusinessLogicLayer
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly ICartRepository cartRepository;
+        public UserService(IUserRepository userRepository, ICartRepository cartRepository)
         {
             this.userRepository = userRepository;
-            
+            this.cartRepository = cartRepository;
+
         }
         public async Task<IEnumerable<UserModel>> GetUsersAsync()
         {
@@ -26,6 +28,7 @@ namespace BusinessLogicLayer
         {
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
             await userRepository.CreateUserAsync(user);
+            await cartRepository.CreateCartAsync(user.UserID);
         }
 
         public async Task<UserModel> LoginAsync(string email, string password)
