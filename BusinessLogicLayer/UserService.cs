@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Entities;
+﻿using BCrypt.Net;
+using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace BusinessLogicLayer
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly ICartRepository cartRepository;
+        public UserService(IUserRepository userRepository, ICartRepository cartRepository)
         {
             this.userRepository = userRepository;
-            
+            this.cartRepository = cartRepository;
+
         }
         public async Task<IEnumerable<UserModel>> GetUsersAsync()
         {
@@ -23,12 +26,25 @@ namespace BusinessLogicLayer
 
         public async Task CreateUserAsync(UserModel user)
         {
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
             await userRepository.CreateUserAsync(user);
+            await cartRepository.CreateCartAsync(user.UserID);
         }
 
         public async Task<UserModel> LoginAsync(string email, string password)
         {
-            return await userRepository.GetLoginInfoAsync(email, password);
+            var user = await userRepository.GetUserByEmailAsync(email);
+
+            if (user != null)
+            { 
+                bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+
+                if (isPasswordValid) 
+                {
+                    return user;
+                }
+            }
+            return null;
         }
         public async Task<UserModel> GetUserByIdAsync(int id)
         {

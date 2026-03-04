@@ -34,6 +34,7 @@ namespace WeBringTheParty_.Controllers
             //set user's first name for login session
             HttpContext.Session.SetString("FirstName", user.FirstName);
             HttpContext.Session.SetString("Role", user.Role);
+            HttpContext.Session.SetString("UserID", user.UserID.ToString());
 
             //if user is admin, send to admin dashboard
             //send customers to welcome page

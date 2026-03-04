@@ -23,10 +23,20 @@
 
             <p class="mb-4"><strong>Quantity Available:</strong> @Model.QuantityAvailable</p>
 
-            <div class="d-flex gap-2 mb-4">
-                <input type="number" min="1" max="@Model.QuantityAvailable" value="1" class="form-control w-25">
-                <button class="btn btn-dark px-4">Add to Cart</button>
-            </div>
+            <form asp-controller="Product" asp-action="AddToCart" method="post">
+                <input type="hidden" name="productId" value="@Model.ProductID" />
+
+                <div class="d-flex gap-2 mb-4">
+                    <input type="number"
+                           name="quantity"
+                           min="1"
+                           max="@Model.QuantityAvailable"
+                           value="1"
+                           class="form-control w-25">
+
+                    <button type="submit" class="btn btn-dark px-4">Add to Cart</button>
+                </div>
+            </form>
 
             <a asp-action="ShopAll" class="btn btn-dark btn-outline-secondary">← Back to Shop</a>
         </div>

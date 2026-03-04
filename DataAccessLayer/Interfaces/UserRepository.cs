@@ -39,6 +39,10 @@ namespace DataAccessLayer.Interfaces
             return await appDbContext.Users.FindAsync(id);
         }
 
+        public async Task<UserModel> GetUserByEmailAsync(string email) { 
+            return await appDbContext.Users.FirstOrDefaultAsync(u => u.EmailAddress == email);
+        }
+
         public async Task DeleteUserAsync(int id)
         {
             var user = await appDbContext.Users.FindAsync(id);

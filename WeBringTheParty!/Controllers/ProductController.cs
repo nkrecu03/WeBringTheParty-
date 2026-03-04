@@ -1,15 +1,18 @@
 ﻿using BusinessLogicLayer;
 using DataAccessLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace WeBringTheParty_.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductService productService;
-        public ProductController(IProductService productService)
+        private readonly ICartService cartService;
+        public ProductController(IProductService productService, ICartService cartService)
         {
             this.productService = productService;
+            this.cartService = cartService;
         }
 
         public async Task<IActionResult> Index()
@@ -134,6 +137,20 @@ namespace WeBringTheParty_.Controllers
             }
 
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int productId, int quantity = 1)
+        {
+            // Get User ID from Session
+            var userIdString = HttpContext.Session.GetString("UserID");
+            if (string.IsNullOrEmpty(userIdString)) return RedirectToAction("Login", "Account");
+
+            int userId = int.Parse(userIdString);
+
+            // Call the SERVICE, not the repository
+            await cartService.AddItemToCartAsync(userId, productId, quantity);
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }
