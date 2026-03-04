@@ -16,6 +16,6 @@ namespace BusinessLogicLayer
         Task<UserModel> GetUserByIdAsync(int id);
         Task<bool> DeleteUserAsync(int id);
         Task EditUserAsync(UserModel user);
-
+        Task<UserModel> GetUserByEmailAsync(string email);
     }
 }

@@ -15,5 +15,6 @@ namespace DataAccessLayer.Interfaces
         Task<UserModel> GetUserByIdAsync(int UserID);
         Task DeleteUserAsync(int UserID);
         Task EditUserAsync(UserModel user);
+        Task<UserModel> GetUserByEmailAsync(string email);
     }
 }
