@@ -18,8 +18,8 @@ namespace WeBringTheParty_.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(int productId, int quantity)
         {
-            // Get the logged-in User's ID (assuming you're using Identity/Claims)
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userIdString = HttpContext.Session.GetString("UserID");
+            int userId = userIdString != null ? int.Parse(userIdString) : 0;
 
             await _cartService.AddToCartAsync(userId, productId, quantity);
 
@@ -29,7 +29,8 @@ namespace WeBringTheParty_.Controllers
         [HttpPost]
         public async Task<IActionResult> Remove(int cartItemId)
         {
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userIdString = HttpContext.Session.GetString("UserID");
+            int userId = userIdString != null ? int.Parse(userIdString) : 0;
             await _cartService.RemoveFromCartAsync(userId, cartItemId);
 
             return RedirectToAction("Index");
@@ -39,7 +40,8 @@ namespace WeBringTheParty_.Controllers
         public async Task<IActionResult> Index()
         {
             // Get the logged-in User's ID
-            int userId = 13;
+            var userIdString = HttpContext.Session.GetString("UserID");
+            int userId = userIdString != null ? int.Parse(userIdString) : 0;
 
             // Fetch items from the BLL
             var cartItems = await _cartService.GetCartByUserIdAsync(userId);

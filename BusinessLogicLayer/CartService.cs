@@ -46,7 +46,6 @@ namespace BusinessLogicLayer
         public async Task RemoveFromCartAsync(int userId, int cartItemId)
         {
             var item = await _cartRepo.GetCartItemAsync(userId, cartItemId);
-
             // We assume your CartItem entity has a navigation property back to the Cart/UserId
             if (item == null || item.Cart.UserID != userId)
             {
@@ -65,6 +64,24 @@ namespace BusinessLogicLayer
             // the user their cart, you would do that here.
 
             return items;
+        }
+
+        public async Task AddItemToCartAsync(int userId, int productId, int quantity)
+        {
+            // Business Logic: Check if user already has this item in their cart
+            var existingItem = await _cartRepo.GetCartItemAsync(userId, productId);
+
+            if (existingItem != null)
+            {
+                // Logic: Just update the quantity
+                existingItem.Quantity += quantity;
+                await _cartRepo.UpdateQuantityAsync(existingItem.ProductID, existingItem.Quantity);
+            }
+            else
+            {
+                // Logic: Create a new cart entry
+                await _cartRepo.AddItemAsync(userId, productId, quantity);
+            }
         }
 
     }

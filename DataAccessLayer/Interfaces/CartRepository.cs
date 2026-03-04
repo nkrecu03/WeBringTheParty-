@@ -17,7 +17,8 @@ namespace DataAccessLayer.Interfaces
         public async Task<CartItemModel> GetCartItemAsync(int userId, int productId)
         {
             return await _context.CartItems
-                .FirstOrDefaultAsync(ci => ci.Cart.UserID == userId && ci.ProductID == productId);
+                .Include(ci => ci.Cart)
+                .FirstOrDefaultAsync(ci => ci.CartItemID == productId && ci.Cart.UserID == userId);
         }
 
         public async Task AddItemAsync(int userId, int productId, int quantity)
@@ -77,6 +78,13 @@ namespace DataAccessLayer.Interfaces
             _context.Carts.Add(newCart);
             await _context.SaveChangesAsync();
         }
+
+        public async Task SaveNewCartItemAsync(CartItemModel item)
+        {
+            _context.CartItems.Add(item);
+            await _context.SaveChangesAsync();
+        }
+
 
     }
 }

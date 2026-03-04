@@ -27,6 +27,13 @@
         {
             <!-- Logged in -->
             <span class="text-white me-3">Hello, @firstName!</span>
+
+
+            <a class="btn btn-outline-light me-3" asp-controller="Cart" asp-action="Index">
+                    <i class="bi bi-cart4"></i> Cart
+                </a>
+
+
             <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
                 <button type="submit" class="btn btn-link text-white" style="display:inline; padding:0;">Logout</button>
             </form>

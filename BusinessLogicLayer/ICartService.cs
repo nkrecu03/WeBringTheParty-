@@ -13,6 +13,9 @@ namespace BusinessLogicLayer
         Task<decimal> GetCartTotalAsync(int userId);
         Task RemoveFromCartAsync(int userID, int cartItemId);
         Task<IEnumerable<CartItemModel>> GetCartByUserIdAsync(int userId);
+        Task AddItemToCartAsync(int userId, int productId, int quantity);
+
+
 
     }
 }
