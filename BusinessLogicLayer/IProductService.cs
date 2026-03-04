@@ -10,6 +10,7 @@ namespace BusinessLogicLayer
     public interface IProductService
     {
         Task<IEnumerable<ProductModel>> GetProductsAsync();
+        Task CreateProductAsync(ProductModel product);
 
     }
 }

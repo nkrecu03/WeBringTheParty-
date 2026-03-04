@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WeBringTheParty_.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="@ViewData["BodyClass"]">
     <!--Insert Header-->
     @await Html.PartialAsync("_Header")
 
@@ -22,7 +23,7 @@
         @RenderBody()
     </main>    
 
-    <footer class="border-top footer text-muted">
+    <footer class=" footer-all border-top footer text-muted">
         <div class="container">
             &copy; 2026 - WeBringTheParty_ - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -37,4 +38,3 @@
 </html>
 
 
-<!-- e-->

@@ -20,5 +20,10 @@ namespace BusinessLogicLayer
         {
             return await productRepository.GetProductsAsync();
         }
+
+        public async Task CreateProductAsync(ProductModel product)
+        {
+            await productRepository.CreateProductAsync(product);
+        }
     }
 }

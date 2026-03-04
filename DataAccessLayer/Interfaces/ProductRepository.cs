@@ -23,5 +23,11 @@ namespace DataAccessLayer.Interfaces
             return await appDbContext.Products.ToListAsync();
         }
 
+        public async Task CreateProductAsync(ProductModel product)
+        {
+            await appDbContext.Products.AddAsync(product);
+            await appDbContext.SaveChangesAsync();
+        }
+
     }
 }

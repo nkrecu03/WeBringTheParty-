@@ -35,5 +35,29 @@ namespace WeBringTheParty_.Controllers
 
             return RedirectToAction("Welcome", "Account");
         }
+       
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUserAsync(int id)
+        {
+            var user = await userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost, ActionName("DeleteUser")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            await userService.DeleteUserAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }

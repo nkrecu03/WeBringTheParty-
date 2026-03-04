@@ -16,81 +16,143 @@ html {
   position: relative;
   min-height: 100%;
 }
-.header-image-container {
-    width: 100%; /* full width of the screen */
-    overflow: hidden; /* hides any part of image that overflows */
-    height: 600px; /* banner height, adjust as needed */
-    margin: 0;
-    padding: 0;
+
+/* FEATURES APPLIED TO MULTIPLE PAGES */
+.admin-container {
+    margin-top: 0px;
+}
+
+.footer-all {
+    background-color: white;
+}
+
+.page-margin {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 60px));
+    margin-bottom: 10%;
+}
+
+
+/* SHOP ALL PAGE CSS */
+
+.shop-grid {
+    row-gap: 4rem; /* vertical spacing between rows */
+    column-gap: 4rem; /* horizontal spacing between cards */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* centers the whole grid */
+
+}
+
+.details-btn {
+    width: 100%;
+    background-color: blueviolet;
+    
+}
+
+.product-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* was 0.2 */
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 0.5rem;
+    width: 100%;
+    min-height: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* was 0.3 */
+}
+
+
+
+
+/* HEADER CSS */
+:root {
+    --top-bar-height: 110px;
+    --navbar-height: 60px;
 }
 
 .top-bar {
-    position: fixed; /* or use 'fixed' if you want it always visible */
-    top: 0;
-    z-index: 1050;
-    background-color: rgba(155, 210, 203) !important;
+    position: fixed;
+    height: var(--top-bar-height);
+    background-color: #9BD2CB;
     width: 100%;
-    padding: 8px 20px;
 }
 
 .logo {
     flex: 0 0 auto;
     height: 100px;
-    width: auto;/* prevents flex-grow */
-
-}
-
-.logo-video {
-    height: 100px;
-    width: auto;
-}
-/* <div class="site-logo">
-            <a href="/">
-                <video id="logoAnimation" class="logo-video" autoplay muted playsinline preload="auto">
-                    <source src="~/videos/WE BRING.mp4" type="video/mp4">
-                </video>
-            </a>
-        </div>*/
-
-
-.header-image {
-    width: 100% ; /* spans full width */
-    height: 100%; /* fill the container height */
-    object-fit: cover; /* crop to fit container without distortion */
-    display: block; /* removes default inline spacing */
+    width: auto; /* prevents flex-grow */
 }
 
 .navbar {
-    background-color: #C2E3DF !important;
+    background-color: #C2E3DF;
     position: fixed;
-    top: 110px;
-    width: 100% !important;
+    top: var(--top-bar-height);
+    height: var(--navbar-height);
+    width: 100%;
 }
 
+.navbar-container {
+    font-size: 1.5rem;
+    gap: 4rem;
+}
+.nav-button {
+    color: black;
+    
+}
+
+/* keeps page content below header */
 .page-content {
-    margin-left: 45px; /* space from left edge */
-    margin-right: 45px; /* optional, for symmetry */
-    margin-top: 190px;
-    margin-bottom: 150px;
+    padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 60px));
+    margin-bottom: 10%;
 }
 
-.admin-container {
-    margin-top: 0px;
-    margin-left: 0px;
+
+
+
+
+
+/* LOGIN PAGE CSS */
+.login-container {
+    gap: .5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
+    width: 60%;
+    padding-top: 7%;
+    padding-bottom: 10%;
+    background-color: white;
 }
 
+.login-card {
+    width: 60%;
+    background-color: white;
+    
+}
+
+.divider-line {
+    width: 40%;
+    color: black;
+    
+}
 
 
 
 
 
 /*CREATE USER VIEW CSS*/
-
 /*container for 2 main columns*/
 .create-account-wrapper {
     display: flex;
-    gap: 1.5rem; /* space between image and form */
-    margin: 0 auto;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 /* image */
@@ -106,25 +168,26 @@ html {
 
 /* entire left column container */
 .image-container {
-    position: relative; /* allows absolute positioning inside */
+    position: relative;
 }
 
 /* text on image */
 .party-text {
     position: absolute; /* sits on top of image */
-    top: 450px; /* distance from top */
-
-    color: #27113F; /* text color */
-    font-size: 1.5rem; /* adjust as needed */
-    left: 120px;
+   
+    color: #27113F; 
+    font-size: 1.5rem; 
+    padding-left: 40%;
+    padding-top: 80%
 }
 
 /* right column entire card container */
 .create-user-card {
     border: 1px solid #ccc;
     border-radius: 12px;
-    background-color: #fff; 
+    background-color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 40px;
 }
 
 /* field label in each text box */
@@ -177,7 +240,40 @@ html {
     transition: background-color 0.3s; 
 }
 
-    .create-account-btn:hover {
-        background-color: #7e62b5; /* new color on hover */
-        border-color: #7e62b5;
+.create-account-btn:hover {
+    background-color: #7e62b5; /* new color on hover */
+    border-color: #7e62b5;
+}
+
+
+
+
+
+/* BACKGORUND IMAGE FOR LOGIN*/
+body.login-page {
+    background-image: url('/images/balloons.png'); /* path to your image */
+    background-size: cover; /* fills screen */
+    background-position: center; /* center image */
+    background-repeat: no-repeat; /* no tiling */
+    background-attachment: fixed; /* stays fixed when scrolling */
+    min-height: 100vh; /* ensure full height */
+    
+}
+
+    /* Optional overlay for better readability */
+    body.login-page::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.3); /* dark overlay */
+        z-index: 0;
     }
+
+/* Make sure your login container appears above the overlay */
+.login-container {
+    position: relative;
+    z-index: 1;
+}
