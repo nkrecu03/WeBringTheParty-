@@ -14,5 +14,8 @@ namespace DataAccessLayer.Interfaces
         Task<UserModel> GetLoginInfoAsync(string email, string password);
         Task<UserModel> GetUserByIdAsync(int UserID);
         Task DeleteUserAsync(int UserID);
+        Task<UserModel> GetUserByEmailAsync(string email);
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Entities;
+﻿using BCrypt.Net;
+using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,24 @@ namespace BusinessLogicLayer
 
         public async Task CreateUserAsync(UserModel user)
         {
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
             await userRepository.CreateUserAsync(user);
         }
 
         public async Task<UserModel> LoginAsync(string email, string password)
         {
-            return await userRepository.GetLoginInfoAsync(email, password);
+            var user = await userRepository.GetUserByEmailAsync(email);
+
+            if (user != null)
+            { 
+                bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+
+                if (isPasswordValid) 
+                {
+                    return user;
+                }
+            }
+            return null;
         }
         public async Task<UserModel> GetUserByIdAsync(int id)
         {
