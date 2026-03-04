@@ -17,6 +17,314 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+/* FEATURES APPLIED TO MULTIPLE PAGES */
+.admin-container {
+    margin-top: 0px;
+}
+
+.footer-all {
+    background-color: white;
+}
+
+.page-margin {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 60px));
+    margin-bottom: 10%;
+}
+
+
+
+/* PRODUCT DETAILS CSS  */
+
+.product-detail-img {
+    max-height: 500px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+    .product-detail-img:hover {
+        transform: scale(1.05); /* subtle zoom on hover */
+    }
+
+/* Buttons */
+.btn-dark {
+    background-color: #27113F;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+    .btn-dark:hover {
+        background-color: #7e62b5;
+        color: #fff;
+    }
+
+    .btn-dark:focus,
+    .btn-dark:active,
+    .btn-dark:focus-visible {
+        outline: 2px solid gray !important;
+        box-shadow: 0 0 0 0.2rem rgba(128,128,128,0.25) !important;
+    }
+
+/* Price Styling */
+.text-success {
+    color: #28a745 !important; /* nice green for price */
+}
+
+/* Input for quantity */
+input[type=number] {
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+
+
+
+
+
+/* SHOP ALL PAGE CSS */
+
+.shop-grid {
+    row-gap: 4rem; /* vertical spacing between rows */
+    column-gap: 4rem; /* horizontal spacing between cards */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* centers the whole grid */
+
+}
+
+
+.product-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* was 0.2 */
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 0.5rem;
+    width: 100%;
+    min-height: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* was 0.3 */
+}
+
+
+
+
+/* HEADER CSS */
+:root {
+    --top-bar-height: 110px;
+    --navbar-height: 60px;
+}
+
+.top-bar {
+    position: fixed;
+    height: var(--top-bar-height);
+    background-color: #9BD2CB;
+    width: 100%;
+}
+
+.logo {
+    flex: 0 0 auto;
+    height: 100px;
+    width: auto; /* prevents flex-grow */
+}
+
+.navbar {
+    background-color: #C2E3DF;
+    position: fixed;
+    top: var(--top-bar-height);
+    height: var(--navbar-height);
+    width: 100%;
+}
+
+.navbar-container {
+    font-size: 1.5rem;
+    gap: 4rem;
+}
+.nav-button {
+    color: black;
+    
+}
+
+/* keeps page content below header */
+.page-content {
+    padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 60px));
+    margin-bottom: 10%;
+}
+
+
+
+
+
+
+/* LOGIN PAGE CSS */
+.login-container {
+    gap: .5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
+    width: 60%;
+    padding-top: 7%;
+    padding-bottom: 10%;
+    background-color: white;
+}
+
+.login-card {
+    width: 60%;
+    background-color: white;
+    
+}
+
+.divider-line {
+    width: 40%;
+    color: black;
+    
+}
+
+
+
+
+
+/*CREATE USER VIEW CSS*/
+/*container for 2 main columns*/
+.create-account-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+/* image */
+.create-form-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
+}
+
+/* entire left column container */
+.image-container {
+    position: relative;
+}
+
+/* text on image */
+.party-text {
+    position: absolute; /* sits on top of image */
+   
+    color: #27113F; 
+    font-size: 1.5rem; 
+    padding-left: 40%;
+    padding-top: 80%
+}
+
+/* right column entire card container */
+.create-user-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 40px;
+}
+
+/* field label in each text box */
+.form-floating > label {
+    color: #aaa;
+    font-size: 1rem; /* size before floating */
+}
+
+/* user input text */
+.form-floating .form-control:focus ~ label {
+    color: #333;
+}
+
+/* each field box (round) */
+.form-input .form-control {
+    border-radius: 50px;
+    height: auto;
+}
+
+/* misc text inside card */
+.create-account-text {
+    color: #27113F;
+    margin-bottom: 25px;
+}
+.personal-info {
+    font-size: 1rem;
+    margin-left: 7px;
+    margin-top: 50px;
+    color: #27113F;
+}
+
+.password-text {
+    margin-top: 50px;
+    font-size: 1rem;
+    margin-left: 7px;
+    color: #27113F;
+}
+
+.password-specs {
+    color: #555; /* medium gray */
+    font-size: 0.875rem; /* slightly smaller than normal text */
+    text-align: center; /* center under the form */
+}
+
+/* submit button */
+.create-account-btn {
+    background-color: #27113F;
+    border-color: #27113F;
+    color: white; 
+    transition: background-color 0.3s; 
+}
+
+.create-account-btn:hover {
+    background-color: #7e62b5; /* new color on hover */
+    border-color: #7e62b5;
+}
+
+    .create-account-btn:focus,
+    .create-account-btn:active,
+    .create-account-btn:focus-visible {
+        outline: 2px solid gray !important;
+        box-shadow: 0 0 0 0.2rem rgba(128,128,128,0.25) !important;
+    }
+
+
+
+
+
+/* BACKGORUND IMAGE FOR LOGIN*/
+body.login-page {
+    background-image: url('/images/balloons.png'); /* path to your image */
+    background-size: cover; /* fills screen */
+    background-position: center; /* center image */
+    background-repeat: no-repeat; /* no tiling */
+    background-attachment: fixed; /* stays fixed when scrolling */
+    min-height: 100vh; /* ensure full height */
+    
+}
+
+    /* Optional overlay for better readability */
+    body.login-page::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.3); /* dark overlay */
+        z-index: 0;
+    }
+
+/* Make sure your login container appears above the overlay */
+.login-container {
+    position: relative;
+    z-index: 1;
 }

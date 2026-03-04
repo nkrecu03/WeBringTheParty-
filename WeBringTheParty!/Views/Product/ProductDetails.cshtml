@@ -1,0 +1,35 @@
+﻿@model DataAccessLayer.Entities.ProductModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container my-5">
+    <div class="row g-5 align-items-center">
+
+        <!-- LEFT: Product Image -->
+        <div class="col-md-6 text-center">
+            <img src="@Url.Content("~/product_images/" + Model.ImageUrl)"
+                 class="img-fluid rounded shadow-lg product-detail-img"
+                 alt="@Model.Name" />
+        </div>
+
+        <!-- RIGHT: Product Info -->
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-5">@Model.Name</h2>
+
+            <p class="text-success fs-3 fw-bold mb-4">$@Model.Price</p>
+
+            <p class="text-muted mb-4">@Model.Description</p>
+
+            <p class="mb-4"><strong>Quantity Available:</strong> @Model.QuantityAvailable</p>
+
+            <div class="d-flex gap-2 mb-4">
+                <input type="number" min="1" max="@Model.QuantityAvailable" value="1" class="form-control w-25">
+                <button class="btn btn-dark px-4">Add to Cart</button>
+            </div>
+
+            <a asp-action="ShopAll" class="btn btn-dark btn-outline-secondary">← Back to Shop</a>
+        </div>
+
+    </div>
+</div>

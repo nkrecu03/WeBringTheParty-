@@ -30,5 +30,21 @@ namespace BusinessLogicLayer
         {
             return await userRepository.GetLoginInfoAsync(email, password);
         }
+        public async Task<UserModel> GetUserByIdAsync(int id)
+        {
+            return await userRepository.GetUserByIdAsync(id);
+        }
+
+        public async Task<bool> DeleteUserAsync(int id)
+        {
+            var user = await userRepository.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return false;
+            }
+
+            await userRepository.DeleteUserAsync(id);
+            return true;
+        }
     }
 }

@@ -1,52 +1,106 @@
 ﻿@model DataAccessLayer.Entities.UserModel
 
 @{
-    ViewData["Title"] = "CreateUser";
+    Layout = "_Layout";
+    
 }
 
-<h1>CreateUser</h1>
 
-<h4>UserModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateUser">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="page-content d-flex justify-content-center">
+    <div class="create-account-wrapper d-flex g-4" style=" width: 100%;">
+
+        <!-- Left Column: Image -->
+        <div class="image-container col-md-6 text-center d-flex">
+            <img src="~/images/WBTP_Logo.png" alt="Sign Up" class="img-fluid create-form-img">
+            <div class="party-text">A party awaits...</div>
             
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmailAddress" class="control-label"></label>
-                <input asp-for="EmailAddress" class="form-control" />
-                <span asp-validation-for="EmailAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PasswordHash" class="control-label"></label>
-                <input asp-for="PasswordHash" class="form-control" />
-                <span asp-validation-for="PasswordHash" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <!-- Right Column: Card/Form -->
+        <div class="col-md-6 create-user-card d-flex">
+            <div class="form-input p-4 w-100">
+                <h2 class="create-account-text text-center mb-4">Create Account</h2>
+                <h4 class="personal-info">Personal Information</h4>
+
+                <form asp-action="CreateUser" method="post">
+                    <!-- First Name / Last Name Row -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                                <label asp-for="FirstName">First Name</label>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                                <label asp-for="LastName">Last Name</label>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email / Phone -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="EmailAddress" class="form-control" placeholder="Email" />
+                                <label asp-for="EmailAddress">Email</label>
+                                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+                                <label asp-for="PhoneNumber">Phone Number</label>
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="password-text">Choose Password</h4>
+
+                    <!-- Password -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input asp-for="PasswordHash" type="password" class="form-control" placeholder="Password" />
+                                <label asp-for="PasswordHash">Password</label>
+                                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input asp-for="PasswordHash" type="password" class="form-control" placeholder="Confirm Password" />
+                                <label asp-for="PasswordHash">Confirm Password</label>
+                                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="password-specs mt-3">
+                        <small>
+                            Password must be at least 8 characters, include one uppercase letter, one number, and one special character.
+                        </small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="row mt-4">
+                        <div class="col-6 mx-auto">
+                            <button type="submit" class="btn btn-primary w-100 rounded-pill create-account-btn">
+                                Create Account
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 @section Scripts {

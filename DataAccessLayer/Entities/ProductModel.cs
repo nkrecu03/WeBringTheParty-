@@ -21,7 +21,8 @@ namespace DataAccessLayer.Entities
         public int QuantityAvailable { get; set; }
 
         public string ImageUrl { get; set; }
-        public bool isActive {  get; set; }
+        public bool isActive { get; set; }
+        
 
     }
 }
