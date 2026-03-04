@@ -34,6 +34,55 @@ html {
 }
 
 
+
+/* PRODUCT DETAILS CSS  */
+
+.product-detail-img {
+    max-height: 500px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+    .product-detail-img:hover {
+        transform: scale(1.05); /* subtle zoom on hover */
+    }
+
+/* Buttons */
+.btn-dark {
+    background-color: #27113F;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+    .btn-dark:hover {
+        background-color: #7e62b5;
+        color: #fff;
+    }
+
+    .btn-dark:focus,
+    .btn-dark:active,
+    .btn-dark:focus-visible {
+        outline: 2px solid gray !important;
+        box-shadow: 0 0 0 0.2rem rgba(128,128,128,0.25) !important;
+    }
+
+/* Price Styling */
+.text-success {
+    color: #28a745 !important; /* nice green for price */
+}
+
+/* Input for quantity */
+input[type=number] {
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+
+
+
+
+
 /* SHOP ALL PAGE CSS */
 
 .shop-grid {
@@ -45,11 +94,6 @@ html {
 
 }
 
-.details-btn {
-    width: 100%;
-    background-color: blueviolet;
-    
-}
 
 .product-card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* was 0.2 */
@@ -244,6 +288,13 @@ html {
     background-color: #7e62b5; /* new color on hover */
     border-color: #7e62b5;
 }
+
+    .create-account-btn:focus,
+    .create-account-btn:active,
+    .create-account-btn:focus-visible {
+        outline: 2px solid gray !important;
+        box-shadow: 0 0 0 0.2rem rgba(128,128,128,0.25) !important;
+    }
 
 
 
