@@ -29,9 +29,10 @@ html {
 .page-margin {
     margin-left: 10%;
     margin-right: 10%;
-    padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 60px));
+    padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 100px));
     margin-bottom: 10%;
 }
+
 
 
 
@@ -44,7 +45,7 @@ html {
 }
 
     .product-detail-img:hover {
-        transform: scale(1.05); /* subtle zoom on hover */
+        transform: scale(1.05); 
     }
 
 /* Buttons */
@@ -68,7 +69,7 @@ html {
 
 /* Price Styling */
 .text-success {
-    color: #28a745 !important; /* nice green for price */
+    color: #28a745 !important; 
 }
 
 /* Input for quantity */
@@ -86,17 +87,17 @@ input[type=number] {
 /* SHOP ALL PAGE CSS */
 
 .shop-grid {
-    row-gap: 4rem; /* vertical spacing between rows */
-    column-gap: 4rem; /* horizontal spacing between cards */
+    row-gap: 4rem; 
+    column-gap: 4rem; 
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* centers the whole grid */
+    justify-content: center; 
 
 }
 
 
 .product-card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* was 0.2 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 0.5rem;
@@ -107,7 +108,7 @@ input[type=number] {
 
 .product-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* was 0.3 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); 
 }
 
 
@@ -115,38 +116,65 @@ input[type=number] {
 
 /* HEADER CSS */
 :root {
-    --top-bar-height: 110px;
-    --navbar-height: 60px;
+    --top-bar-height: 100px;
+    --navbar-height: 100px;
 }
 
 .top-bar {
     position: fixed;
     height: var(--top-bar-height);
-    background-color: #9BD2CB;
+    background-color: white;
     width: 100%;
 }
 
 .logo {
     flex: 0 0 auto;
     height: 100px;
-    width: auto; /* prevents flex-grow */
+    width: auto; 
 }
 
 .navbar {
-    background-color: #C2E3DF;
+    background-color: #27113F;
     position: fixed;
     top: var(--top-bar-height);
     height: var(--navbar-height);
     width: 100%;
-}
-
-.navbar-container {
-    font-size: 1.5rem;
     gap: 4rem;
 }
+
 .nav-button {
-    color: black;
-    
+    text-decoration: none; 
+    color: white; 
+    font-weight: 500; 
+    transition: color 0.2s ease;
+    font-size: 32px;
+    padding: 10px;
+}
+
+    /* Optional: hover effect */
+.navbar .nav-button:hover {
+    color: #5a4490; 
+}
+
+.btn-purple {
+    color: white; 
+    background-color: #7e62b5; 
+    border-color: #7e62b5;
+    transition: all 0.2s ease;
+}
+
+.btn-purple2 {
+    color: white;
+    background-color: #A37CB2;
+    border-color: #A37CB2;
+    transition: all 0.2s ease;
+}
+
+
+.btn-purple:hover {
+    background-color: #5a4490;
+    border-color: #5a4490;
+    color: white;
 }
 
 /* keeps page content below header */
@@ -154,6 +182,18 @@ input[type=number] {
     padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 60px));
     margin-bottom: 10%;
 }
+
+.search-bar {
+    background-color: #ebebeb;
+    width: 400px;
+    height: 44px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+
+
 
 
 
@@ -217,7 +257,7 @@ input[type=number] {
 
 /* text on image */
 .party-text {
-    position: absolute; /* sits on top of image */
+    position: absolute;
    
     color: #27113F; 
     font-size: 1.5rem; 
@@ -237,7 +277,7 @@ input[type=number] {
 /* field label in each text box */
 .form-floating > label {
     color: #aaa;
-    font-size: 1rem; /* size before floating */
+    font-size: 1rem; 
 }
 
 /* user input text */
@@ -271,9 +311,9 @@ input[type=number] {
 }
 
 .password-specs {
-    color: #555; /* medium gray */
-    font-size: 0.875rem; /* slightly smaller than normal text */
-    text-align: center; /* center under the form */
+    color: #555; 
+    font-size: 0.875rem; 
+    text-align: center; 
 }
 
 /* submit button */
@@ -285,7 +325,7 @@ input[type=number] {
 }
 
 .create-account-btn:hover {
-    background-color: #7e62b5; /* new color on hover */
+    background-color: #7e62b5; 
     border-color: #7e62b5;
 }
 
@@ -302,16 +342,16 @@ input[type=number] {
 
 /* BACKGORUND IMAGE FOR LOGIN*/
 body.login-page {
-    background-image: url('/images/balloons.png'); /* path to your image */
-    background-size: cover; /* fills screen */
-    background-position: center; /* center image */
-    background-repeat: no-repeat; /* no tiling */
-    background-attachment: fixed; /* stays fixed when scrolling */
-    min-height: 100vh; /* ensure full height */
+    background-image: url('/images/balloons.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    min-height: 100vh;
     
 }
 
-    /* Optional overlay for better readability */
+ 
     body.login-page::before {
         content: "";
         position: fixed;
@@ -319,11 +359,11 @@ body.login-page {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,0.3); /* dark overlay */
+        background-color: rgba(0,0,0,0.3); 
         z-index: 0;
     }
 
-/* Make sure your login container appears above the overlay */
+
 .login-container {
     position: relative;
     z-index: 1;

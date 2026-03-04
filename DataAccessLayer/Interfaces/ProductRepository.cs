@@ -44,5 +44,11 @@ namespace DataAccessLayer.Interfaces
             }
         }
 
+        public async Task EditProductAsync(ProductModel product)
+        {
+            appDbContext.Products.Update(product);
+            await appDbContext.SaveChangesAsync();
+        }
+
     }
 }

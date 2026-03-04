@@ -42,5 +42,10 @@ namespace BusinessLogicLayer
             await productRepository.DeleteProductAsync(id);
             return true;
         }
+
+        public async Task EditProductAsync(ProductModel product)
+        {
+            await productRepository.EditProductAsync(product);
+        }
     }
 }

@@ -46,5 +46,10 @@ namespace BusinessLogicLayer
             await userRepository.DeleteUserAsync(id);
             return true;
         }
+
+        public async Task EditUserAsync(UserModel user)
+        {
+            await userRepository.EditUserAsync(user);
+        }
     }
 }

@@ -13,6 +13,6 @@ namespace BusinessLogicLayer
         Task CreateProductAsync(ProductModel product);
         Task<ProductModel> GetProductByIdAsync(int id);
         Task<bool> DeleteProductAsync(int id);
-
+        Task EditProductAsync(ProductModel product);
     }
 }

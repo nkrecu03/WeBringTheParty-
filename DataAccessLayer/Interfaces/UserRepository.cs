@@ -49,5 +49,11 @@ namespace DataAccessLayer.Interfaces
             }
         }
 
+        public async Task EditUserAsync(UserModel user)
+        {
+            appDbContext.Users.Update(user);
+            await appDbContext.SaveChangesAsync();
+        }
+
     }
 }

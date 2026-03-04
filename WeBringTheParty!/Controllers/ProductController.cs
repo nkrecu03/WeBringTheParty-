@@ -71,6 +71,36 @@ namespace WeBringTheParty_.Controllers
             return View(product);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditProduct(int id)
+        {
+            var product = await productService.GetProductByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(ProductModel editedProduct)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(editedProduct);
+            }
+            try
+            {
+                await productService.EditProductAsync(editedProduct);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(editedProduct);
+            }
+        }
+
 
 
         [HttpPost]
