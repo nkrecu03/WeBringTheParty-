@@ -20,6 +20,7 @@
 
             <!-- Auth buttons -->
             <div class="auth-buttons d-flex align-items-center">
+
                 @if (string.IsNullOrEmpty(firstName))
                 {
                     <a class="btn btn-purple me-2" asp-controller="Account" asp-action="Login">Login</a>
