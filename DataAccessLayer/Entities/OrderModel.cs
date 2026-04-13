@@ -19,5 +19,6 @@ namespace DataAccessLayer.Entities
         // Navigation properties
         public UserModel User { get; set; }
         public List<OrderItemModel> OrderItems { get; set; }
+
     }
 }
