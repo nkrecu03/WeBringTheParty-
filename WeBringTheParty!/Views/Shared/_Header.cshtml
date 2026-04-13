@@ -28,6 +28,11 @@
                 else
                 {
                     <span class="text-black me-3">Hello, @firstName!</span>
+
+                    <a class="btn btn-purple me-2" asp-controller="Order" asp-action="History">
+                        <i class="bi bi-clock-history"></i> Orders
+                    </a>
+
                     <a class="btn btn-purple me-2" asp-controller="Cart" asp-action="Index">
                         <i class="bi bi-cart4"></i> Cart
                     </a>
