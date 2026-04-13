@@ -125,6 +125,7 @@ input[type=number] {
     height: var(--top-bar-height);
     background-color: white;
     width: 100%;
+    z-index: 1000;
 }
 
 .logo {
@@ -140,6 +141,7 @@ input[type=number] {
     height: var(--navbar-height);
     width: 100%;
     gap: 4rem;
+    z-index: 1000;
 }
 
 .nav-button {
