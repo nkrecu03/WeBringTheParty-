@@ -31,10 +31,13 @@ namespace WeBringTheParty_.Controllers
                 return View(model);
             }
 
-            //set user's first name for login session
+            //set user's data for login session
             HttpContext.Session.SetString("FirstName", user.FirstName);
-            HttpContext.Session.SetString("Role", user.Role);
+            HttpContext.Session.SetString("LastName", user.LastName);
+            HttpContext.Session.SetString("Email", user.EmailAddress);
+            HttpContext.Session.SetString("Phone", user.PhoneNumber ?? "");
             HttpContext.Session.SetString("UserID", user.UserID.ToString());
+            HttpContext.Session.SetString("Role", user.Role);
 
             //if user is admin, send to admin dashboard
             //send customers to welcome page
@@ -69,36 +72,5 @@ namespace WeBringTheParty_.Controllers
             return RedirectToAction("Login");
         }
 
-
-
-
-
-
-
-
-
-
-
-        /*
-         * 
-         * 
-         * TempData["FirstName"] = user.FirstName;
-            return RedirectToAction("Welcome");
-        [HttpPost]
-        public IActionResult Login(Models.LoginViewModel model)
-        {
-            return RedirectToAction("Welcome", new {username = model.Email });
-        }
-
-        [HttpPost]
-        public IActionResult Logout() { 
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult Welcome(string email)
-        {
-            ViewBag.Username = email;
-            return View();
-        } */
     }
 }

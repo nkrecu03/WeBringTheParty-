@@ -47,5 +47,10 @@ namespace BusinessLogicLayer
         {
             await productRepository.EditProductAsync(product);
         }
+
+        public async Task<IEnumerable<ProductModel>> GetBestSellersAsync(int count)
+        {
+            return await productRepository.GetBestSellersAsync(count);
+        }
     }
 }

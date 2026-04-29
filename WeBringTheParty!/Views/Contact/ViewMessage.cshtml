@@ -1,0 +1,109 @@
+﻿@model DataAccessLayer.Entities.ContactMessageModel
+
+@{
+    ViewData["Title"] = "View Message";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mb-4">
+    <a asp-action="AdminMessages" class="btn btn-sm btn-outline-secondary">← Back to Messages</a>
+</div>
+
+<div class="row g-4">
+
+    <!-- Message card -->
+    <div class="col-lg-8">
+        <div class="admin-msg-card">
+
+            <div class="admin-msg-card-header">
+                <div>
+                    <h4 class="mb-1">@Model.Subject</h4>
+                    <span class="text-muted small">
+                        Received @Model.SentAt.ToLocalTime().ToString("dddd, MMMM d yyyy 'at' h:mm tt")
+                    </span>
+                </div>
+                @if (Model.Status == "Unread")
+                {
+                    <span class="badge bg-danger">Unread</span>
+                }
+                else if (Model.Status == "Read")
+                {
+                    <span class="badge bg-secondary">Read</span>
+                }
+                else
+                {
+                    <span class="badge bg-success">Replied</span>
+                }
+            </div>
+
+            <div class="admin-msg-card-body">
+                <p class="admin-msg-text">@Model.Message</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Sender info + actions -->
+    <div class="col-lg-4">
+
+        <!-- Sender details -->
+        <div class="admin-msg-sidebar-card mb-3">
+            <h6 class="admin-msg-sidebar-heading">Sender Details</h6>
+
+            <div class="admin-msg-detail-row">
+                <span class="admin-msg-detail-label">Name</span>
+                <span>@Model.FirstName @Model.LastName</span>
+            </div>
+            <div class="admin-msg-detail-row">
+                <span class="admin-msg-detail-label">Email</span>
+                <a href="mailto:@Model.Email">@Model.Email</a>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Phone))
+            {
+                <div class="admin-msg-detail-row">
+                    <span class="admin-msg-detail-label">Phone</span>
+                    <a href="tel:@Model.Phone">@Model.Phone</a>
+                </div>
+            }
+            <div class="admin-msg-detail-row">
+                <span class="admin-msg-detail-label">Subject</span>
+                <span>@Model.Subject</span>
+            </div>
+
+            <!-- Reply by email button -->
+            <a href="mailto:@Model.Email?subject=Re: @Model.Subject"
+               class="btn btn-purple w-100 mt-3">
+                Reply via Email
+            </a>
+        </div>
+
+        <!-- Update status -->
+        <div class="admin-msg-sidebar-card mb-3">
+            <h6 class="admin-msg-sidebar-heading">Update Status</h6>
+            <form asp-action="UpdateStatus" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.MessageID" />
+                <select name="status" class="form-select mb-3">
+                    <option value="Unread" selected="@(Model.Status == "Unread" ? "selected" : null)">Unread</option>
+                    <option value="Read" selected="@(Model.Status == "Read" ? "selected" : null)">Read</option>
+                    <option value="Replied" selected="@(Model.Status == "Replied" ? "selected" : null)">Replied</option>
+                </select>
+                <button type="submit" class="btn btn-purple w-100">Save Status</button>
+            </form>
+        </div>
+
+        <!-- Delete -->
+        <div class="admin-msg-sidebar-card">
+            <h6 class="admin-msg-sidebar-heading" style="color:#dc3545;">Danger Zone</h6>
+            <form asp-action="DeleteMessage" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.MessageID" />
+                <button type="submit" class="btn btn-danger w-100"
+                        onclick="return confirm('Delete this message permanently?')">
+                    Delete Message
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>

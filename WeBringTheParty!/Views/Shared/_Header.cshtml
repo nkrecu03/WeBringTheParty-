@@ -4,57 +4,118 @@
     var firstName = Context.Session.GetString("FirstName");
 }
 
-<header>
-    <!-- Top bar -->
-    <div class="top-bar d-flex justify-content-between align-items-center p-2">
-        <!-- Left Logo -->
-        <div class="d-flex align-items-center">
-            <img src="~/images/purp_logo.png" alt="Logo" class="img-fluid logo me-2">
-            
-        </div>
+<header class="site-header">
 
-        <!-- Right-side: search + auth buttons -->
-        <div class="d-flex align-items-center">
-            <!-- Search bar -->
-            <input type="text" class="search-bar me-3" placeholder="Search...">
+    <div class="top-bar d-flex align-items-center justify-content-between px-4">
 
-            <!-- Auth buttons -->
-            <div class="auth-buttons d-flex align-items-center">
+        <!-- Logo -->
+        <a href="/" class="flex-shrink-0">
+            <img src="~/images/purp_logo.png" alt="WeBringTheParty Logo" class="header-logo">
+        </a>
 
+        <!-- Center nav links -->
+        <nav class="top-nav d-none d-xl-flex align-items-center gap-4">
+            <a class="nav-button" href="/">HOME</a>
+            <a class="nav-button" href="/Product/ShopAll">SHOP ALL</a>
+            <a class="nav-button" href="/Rental/Index">PARTY RENTALS</a>
+            <a class="nav-button" href="/About">ABOUT</a>
+            <a class="nav-button" href="/Contact">CONTACT</a>
+        </nav>
+
+        <!-- Right: auth buttons + hamburger -->
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+
+            <div class="auth-buttons d-none d-lg-flex align-items-center gap-2">
                 @if (string.IsNullOrEmpty(firstName))
                 {
-                    <a class="btn btn-purple me-2" asp-controller="Account" asp-action="Login">Login</a>
-                    <a class="btn btn-purple2" asp-controller="User" asp-action="CreateUser">Sign Up</a>
+                    <a class="btn btn-purple btn-header" asp-controller="Account" asp-action="Login">Login</a>
+                    <a class="btn btn-purple2 btn-header" asp-controller="User" asp-action="CreateUser">Sign Up</a>
                 }
                 else
                 {
-                    <span class="text-black me-3">Hello, @firstName!</span>
-
-                    <a class="btn btn-purple me-2" asp-controller="Order" asp-action="History">
-                        <i class="bi bi-clock-history"></i> Orders
-                    </a>
-
-                    <a class="btn btn-purple me-2" asp-controller="Cart" asp-action="Index">
-                        <i class="bi bi-cart4"></i> Cart
-                    </a>
-                    <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
-                        <button type="submit" class="btn btn-purple text-white">Logout</button>
+                    <span class="text-black fw-semibold d-none d-xl-inline me-1">Hello, @firstName!</span>
+                    <a class="btn btn-purple btn-header" asp-controller="Order" asp-action="History">Orders</a>
+                    <a class="btn btn-purple btn-header" asp-controller="Cart" asp-action="Index">Cart</a>
+                    <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline m-0">
+                        <button type="submit" class="btn btn-purple btn-header text-white">Logout</button>
                     </form>
-
                     @if (role == "Admin")
                     {
-                        <a class="btn btn-purple ms-3" asp-controller="Admin" asp-action="Dashboard">Admin Dashboard</a>
+                        <a class="btn btn-purple btn-header" asp-controller="Admin" asp-action="Dashboard">Admin</a>
                     }
                 }
             </div>
+
+            <!-- Hamburger -->
+            <button class="hamburger-btn d-xl-none" id="hamburgerBtn" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
         </div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar d-flex justify-content-center" padding:0;">
-        <a class="nav-button px-3" href="/">HOME</a>
-        <a class="nav-button px-3" href="/Product/ShopAll">SHOP ALL</a>
-        <a class="nav-button px-3" href="/About">ABOUT</a>
-        <a class="nav-button px-3" href="/Contact">CONTACT</a>
-    </nav>
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-inner">
+
+            <nav class="mobile-nav mb-3">
+                <a class="mobile-nav-link" href="/">Home</a>
+                <a class="mobile-nav-link" href="/Product/ShopAll">Shop All</a>
+                <a class="mobile-nav-link" href="/Rental/Index">Party Rentals</a>
+                <a class="mobile-nav-link" href="/About">About</a>
+                <a class="mobile-nav-link" href="/Contact">Contact</a>
+            </nav>
+
+            <hr class="my-2" style="border-color:rgba(255,255,255,0.2);">
+
+            <div class="mobile-auth d-flex flex-column gap-2">
+                @if (string.IsNullOrEmpty(firstName))
+                {
+                    <a class="btn btn-purple2 w-100" asp-controller="Account" asp-action="Login">Login</a>
+                    <a class="btn btn-purple2 w-100" asp-controller="User" asp-action="CreateUser">Sign Up</a>
+                }
+                else
+                {
+                    <span class="text-white fw-semibold mb-1">Hello, @firstName!</span>
+                    <a class="btn btn-purple w-100" asp-controller="Order" asp-action="History">My Orders</a>
+                    <a class="btn btn-purple w-100" asp-controller="Cart" asp-action="Index">My Cart</a>
+                    <form method="post" asp-controller="Account" asp-action="Logout" class="m-0">
+                        <button type="submit" class="btn btn-purple w-100 text-white">Logout</button>
+                    </form>
+                    @if (role == "Admin")
+                    {
+                        <a class="btn btn-purple w-100" asp-controller="Admin" asp-action="Dashboard">Admin Dashboard</a>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
 </header>
+
+<script>
+    const btn      = document.getElementById('hamburgerBtn');
+    const drawer   = document.getElementById('mobileDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+
+    function openDrawer()  {
+        drawer.classList.add('open');
+        backdrop.classList.add('show');
+        btn.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+        drawer.classList.remove('open');
+        backdrop.classList.remove('show');
+        btn.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+    backdrop.addEventListener('click', closeDrawer);
+</script>

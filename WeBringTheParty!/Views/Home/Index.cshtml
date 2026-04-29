@@ -1,13 +1,238 @@
-﻿@{
-    ViewData["BodyClass"] = "login-page";
+﻿@model IEnumerable<DataAccessLayer.Entities.ProductModel>
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        
+        <h1 class="hero-title">We Bring<br>The Party<span class="hero-dot">.</span></h1>
+        <p class="hero-subtitle">Premium party supplies &amp; rentals — delivered straight to your door.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="/Product/ShopAll" class="btn btn-hero-primary">Shop Now</a>
+            <a href="/Rental/Index" class="btn btn-hero-outline">Browse Rentals</a>
+        </div>
+    </div>
+    <div class="hero-scroll-hint"><span>↓</span></div>
+</section>
 
+<!-- ═══════════════════════════════════════════
+     BEST SELLERS
+═══════════════════════════════════════════ -->
+<section class="bestsellers-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-eyebrow">Fan Favorites</span>
+            <h2 class="section-title">Best Sellers</h2>
+            <p class="section-subtitle">Our most loved products — trusted by thousands of parties.</p>
+        </div>
 
-    <img src="~/images/balloons.png" alt="Header Logo" class="header-image" />
-    <img src="~/images/balloons.png" alt="Header Logo" class="header-image" />
-    <img src="~/images/balloons.png" alt="Header Logo" class="header-image" />
-    <img src="~/images/balloons.png" alt="Header Logo" class="header-image" />
-    <img src="~/images/balloons.png" alt="Header Logo" class="header-image" />
+        <div class="row g-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a asp-controller="Product"
+                       asp-action="ProductDetails"
+                       asp-route-id="@item.ProductID"
+                       class="bs-card-link">
+                        <div class="bs-card">
+                            <div class="bs-card-img-wrap">
+                                <img src="@Url.Content("~/product_images/" + item.ImageUrl)"
+                                     alt="@item.Name"
+                                     class="bs-card-img" />
+                                <div class="bs-card-badge">Best Seller</div>
+                            </div>
+                            <div class="bs-card-body">
+                                <h6 class="bs-card-name">@item.Name</h6>
+                                <p class="bs-card-price">$@item.Price</p>
+                                <div class="bs-card-cta">View Product →</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/Product/ShopAll" class="btn btn-purple px-5 py-2">View All Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FULL WIDTH IMAGE BREAK
+═══════════════════════════════════════════ -->
+<div class="full-width-break">
+    <img src="~/images/orange_disco.jpg" alt="" class="full-width-break-img" />
+    <div class="full-width-break-overlay"></div>
+    <div class="full-width-break-text">
+        <h2>PARTY RENTALS</h2>
+    </div>
 </div>
+
+<!-- ═══════════════════════════════════════════
+     RENTALS EXPLAINER
+═══════════════════════════════════════════ -->
+<section class="rentals-explainer-section">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="section-eyebrow">Hassle-Free Rentals</span>
+            <h2 class="section-title">Everything You Need, Delivered &amp; Set Up</h2>
+            <p class="section-subtitle">
+                Skip the stress of buying, storing, and hauling equipment.
+                We deliver, set up, and pick everything back up when the party's over.
+            </p>
+        </div>
+
+        <!-- How it works cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="rental-feature-card">
+                    <div class="rental-feature-icon">
+                        <img src="~/images/step1.png" alt="Book your date" class="feature-icon-img" />
+                    </div>
+                    <h5>Book Your Date</h5>
+                    <p>Browse available rental items, pick your date on our live calendar, and choose a morning, afternoon, or full-day time slot. Available dates show in green — what you see is what's open.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="rental-feature-card">
+                    <div class="rental-feature-icon">
+                        <img src="~/images/step2.png" alt="We deliver and set up" class="feature-icon-img" />
+                    </div>
+                    <h5>We Deliver &amp; Set Up</h5>
+                    <p>Once your booking is confirmed, our team delivers the equipment to your location, sets it up so it's party-ready, and returns to break it all down when you're done.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="rental-feature-card">
+                    <div class="rental-feature-icon">
+                        <img src="~/images/step3.png" alt="Just enjoy the party" class="feature-icon-img" />
+                    </div>
+                    <h5>Just Enjoy the Party</h5>
+                    <p>No heavy lifting, no storage headaches, no cleaning up bulky equipment. Your only job is to have a great time. We take care of the rest from start to finish.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Most rented — dark strip -->
+        <div class="rentals-available-strip">
+            <div class="w-100 text-center mb-4">
+                <span class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Most Popular</span>
+                <h3 class="section-title" style="color:#fff;">Top Rental Picks</h3>
+            </div>
+            <div class="row g-4 justify-content-center w-100">
+                @foreach (var item in (IEnumerable<DataAccessLayer.Entities.RentalItemModel>)ViewBag.MostRented)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <a asp-controller="Rental"
+                           asp-action="CheckAvailability"
+                           asp-route-id="@item.RentalItemID"
+                           class="bs-card-link">
+                            <div class="bs-card bs-card-dark">
+                                <div class="bs-card-img-wrap">
+                                    <img src="@Url.Content("~/product_images/" + item.ImageUrl)"
+                                         alt="@item.Name"
+                                         class="bs-card-img" />
+                                    <div class="bs-card-badge">Most Rented</div>
+                                </div>
+                                <div class="bs-card-body">
+                                    <h6 class="bs-card-name">@item.Name</h6>
+                                    <p class="bs-card-price">
+                                        $@item.RentalPricePerDay
+                                        <span class="bs-card-price-sub">/ day</span>
+                                    </p>
+                                    <p class="bs-card-delivery">+ $@item.DeliveryFee delivery</p>
+                                    <div class="bs-card-cta">Check Availability →</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-5">
+            <a href="/Rental/Index" class="btn btn-purple px-5 py-2 me-3">Browse All Rentals</a>
+            <a href="/Contact" class="btn btn-outline-rental px-5 py-2">Ask a Question</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     WHAT WE OFFER
+═══════════════════════════════════════════ -->
+<section class="offers-section">
+    <div class="container">
+        <h2 class="section-title text-center">What We Offer</h2>
+        <p class="section-subtitle text-center">Everything you need for your next celebration — shipped or delivered.</p>
+        <div class="row g-4 mt-2">
+            <div class="col-md-6">
+                <div class="offer-card" style="background-image: url('/images/disco2.png');">
+                    <div class="offer-card-overlay"></div>
+                    <div class="offer-card-body">
+                        <h3>Party Supplies</h3>
+                        <p>Balloons, decorations, tableware, and more — shipped right to you.</p>
+                        <a href="/Product/ShopAll" class="btn btn-offer">Shop Now →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="offer-card" style="background-image: url('/images/disco1.png');">
+                    <div class="offer-card-overlay"></div>
+                    <div class="offer-card-body">
+                        <h3>Party Rentals</h3>
+                        <p>Bounce houses, tents, photo booths, and more. Book by the day.</p>
+                        <a href="/Rental/Index" class="btn btn-offer">Browse Rentals →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ═══════════════════════════════════════════
+     BRAND / VIDEO
+═══════════════════════════════════════════ -->
+<section class="brand-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <video class="brand-video" autoplay muted loop playsinline>
+                    <source src="~/images/logo_vid.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-3" style="color:#27113F;">Built for Party People</h2>
+                <p class="text-muted mb-3">We started WeBringTheParty because planning a celebration should be fun — not stressful. Whether it's a birthday, a wedding, or a backyard bash, we've got everything you need in one place.</p>
+                <p class="text-muted mb-4">From same-day shipping on supplies to full-service rental delivery and setup, we make sure your event is everything you imagined.</p>
+                <a href="/Product/ShopAll" class="btn btn-purple px-4 py-2">Start Shopping</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CTA BANNER
+═══════════════════════════════════════════ -->
+<section class="cta-section">
+    <div class="cta-overlay"></div>
+    <div class="cta-content text-center">
+        <h2>Ready to Party?</h2>
+        <p>Browse our full collection or book a rental for your next event.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="/Product/ShopAll" class="btn btn-cta-primary">Shop All Products</a>
+            <a href="/Rental/Index" class="btn btn-cta-outline">View Rentals</a>
+        </div>
+    </div>
+</section>

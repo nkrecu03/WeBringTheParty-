@@ -1,0 +1,191 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- HERO -->
+<div class="contact-hero">
+    <div class="contact-hero-overlay"></div>
+    <div class="contact-hero-content">
+        <h1 class="contact-hero-title">Get In Touch</h1>
+        <p class="contact-hero-sub">We'd love to hear from you. Whether it's a question, a custom order, or just saying hi.</p>
+    </div>
+</div>
+
+<div class="container contact-page-wrap">
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert contact-success-alert d-flex align-items-center gap-3" role="alert">
+            <span class="contact-success-icon">🎉</span>
+            <span>@TempData["Success"]</span>
+        </div>
+    }
+
+    <div class="row g-5">
+
+        <!-- LEFT: Contact Info -->
+        <div class="col-lg-4">
+
+            <h2 class="contact-info-heading">We're Here For You</h2>
+            <p class="contact-info-sub">Have a question about an order, a rental, or want to chat about your event? Reach out any way that works for you.</p>
+
+            <div class="contact-info-cards">
+
+                <div class="contact-info-card">
+                    <div>
+                        <h6>Service Area</h6>
+                        <p>Serving the greater Chicago area and surrounding suburbs</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-card">
+                    
+                    <div>
+                        <h6>Phone</h6>
+                        <p><a href="tel:+15555555555">(555) 555-5555</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-info-card">
+                    <
+                    <div>
+                        <h6>Email</h6>
+                        <p><a href="mailto:hello@webringtheparty.com">hello@webringtheparty.com</a></p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            
+
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="col-lg-8">
+            <div class="contact-form-card">
+
+                <h3 class="contact-form-title">Send Us a Message</h3>
+                <p class="contact-form-sub">Fill out the form below and we'll get back to you as soon as possible.</p>
+
+                <form method="post" asp-controller="Contact" asp-action="Index">
+                    @Html.AntiForgeryToken()
+
+                    <!-- Name row -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="contact-label">First Name</label>
+                            <input type="text" name="firstName" class="contact-input"
+                                   placeholder="Jane"
+                                   value="@ViewBag.FirstName" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="contact-label">Last Name</label>
+                            <input type="text" name="lastName" class="contact-input"
+                                   placeholder="Smith"
+                                   value="@ViewBag.LastName" required />
+                        </div>
+                    </div>
+
+                    <!-- Email + Phone row -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="contact-label">Email Address</label>
+                            <input type="email" name="email" class="contact-input"
+                                   placeholder="jane@example.com"
+                                   value="@ViewBag.Email" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="contact-label">Phone <span class="contact-optional">(optional)</span></label>
+                            <input type="tel" name="phone" class="contact-input"
+                                   placeholder="(555) 000-0000"
+                                   value="@ViewBag.Phone" />
+                        </div>
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="mb-3">
+                        <label class="contact-label">Subject</label>
+                        <select name="subject" class="contact-input contact-select" required>
+                            <option value="" disabled selected>Select a topic...</option>
+                            <option value="Order Question">Order Question</option>
+                            <option value="Rental Inquiry">Rental Inquiry</option>
+                            <option value="Custom Order">Custom Order</option>
+                            <option value="Delivery Question">Delivery Question</option>
+                            <option value="Returns & Refunds">Returns &amp; Refunds</option>
+                            <option value="General Question">General Question</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="mb-4">
+                        <label class="contact-label">Message</label>
+                        <textarea name="message" class="contact-input contact-textarea"
+                                  placeholder="Tell us about your event, question, or anything else we can help with..."
+                                  rows="6" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-purple btn-contact-submit">
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FAQ strip -->
+    <div class="contact-faq-strip mt-5">
+        <h4 class="text-center mb-4" style="color:#27113F; font-weight:700;">Frequently Asked Questions</h4>
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="contact-faq-card">
+                    <h6>How far in advance should I book a rental?</h6>
+                    <p>We recommend booking at least 1–2 weeks in advance, especially for weekends and holidays. Popular items like bounce houses book up fast in the summer.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-faq-card">
+                    <h6>Do you offer same-day delivery on products?</h6>
+                    <p>Yes! Orders placed before 12PM are eligible for same-day delivery within our service area. Delivery fees vary by distance.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-faq-card">
+                    <h6>What happens if it rains on my rental day?</h6>
+                    <p>We offer free date changes if you notify us at least 48 hours before your scheduled delivery. We want your event to go perfectly.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-faq-card">
+                    <h6>Is setup and takedown included?</h6>
+                    <p>Yes — all rental items include full setup and takedown by our team. You don't have to lift a finger.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-faq-card">
+                    <h6>Can I return or exchange products?</h6>
+                    <p>Unopened products can be returned within 14 days of delivery. Reach out to our team and we'll walk you through the process.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-faq-card">
+                    <h6>Do you do custom balloon arrangements?</h6>
+                    <p>Absolutely. Send us a message with your event theme, colors, and date and we'll put together a custom quote for you.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

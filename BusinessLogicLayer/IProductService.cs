@@ -14,5 +14,6 @@ namespace BusinessLogicLayer
         Task<ProductModel> GetProductByIdAsync(int id);
         Task<bool> DeleteProductAsync(int id);
         Task EditProductAsync(ProductModel product);
+        Task<IEnumerable<ProductModel>> GetBestSellersAsync(int count);
     }
 }

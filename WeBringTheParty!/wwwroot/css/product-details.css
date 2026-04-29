@@ -1,0 +1,248 @@
+/* ══════════════════════════════════════════
+   PRODUCT DETAILS PAGE
+══════════════════════════════════════════ */
+
+.pd-page {
+    padding: 40px 0 80px;
+}
+
+/* Breadcrumb */
+.pd-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 36px;
+}
+
+    .pd-breadcrumb a {
+        color: #7e62b5;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+        .pd-breadcrumb a:hover {
+            color: #27113F;
+        }
+
+    .pd-breadcrumb span {
+        color: #ccc;
+    }
+
+        .pd-breadcrumb span:last-child {
+            color: #27113F;
+            font-weight: 600;
+        }
+
+/* Image card */
+.pd-img-card {
+    background: #faf8ff;
+    border: 1px solid #ede8f5;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    min-height: 460px;
+    position: sticky;
+    top: 110px;
+}
+
+.pd-img {
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.pd-img-card:hover .pd-img {
+    transform: scale(1.04);
+}
+
+/* Info panel */
+.pd-info {
+    padding-top: 8px;
+}
+
+.pd-name {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #27113F;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+}
+
+.pd-price-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.2rem;
+}
+
+.pd-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #7e62b5;
+}
+
+.pd-stock-badge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 50px;
+}
+
+.pd-in-stock {
+    background-color: #d1e7dd;
+    color: #0a3622;
+}
+
+.pd-out-of-stock {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.pd-divider {
+    border-color: #ede8f5;
+    margin: 1.4rem 0;
+}
+
+.pd-description {
+    color: #555;
+    font-size: 0.97rem;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.pd-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.8rem;
+}
+
+.pd-meta-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.pd-meta-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #27113F;
+}
+
+/* Qty control */
+.pd-form {
+    margin-bottom: 1.2rem;
+}
+
+.pd-qty-row {
+    margin-bottom: 1.4rem;
+}
+
+.pd-qty-control {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #ede8f5;
+    border-radius: 10px;
+    overflow: hidden;
+    width: fit-content;
+    background: #faf8ff;
+}
+
+.pd-qty-btn {
+    width: 40px;
+    height: 44px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #27113F;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+    .pd-qty-btn:hover {
+        background: #ede8f5;
+    }
+
+.pd-qty-input {
+    width: 56px;
+    height: 44px;
+    border: none;
+    border-left: 1.5px solid #ede8f5;
+    border-right: 1.5px solid #ede8f5;
+    background: #fff;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #27113F;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+    .pd-qty-input::-webkit-outer-spin-button,
+    .pd-qty-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+.pd-add-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+}
+
+.pd-disabled-btn {
+    width: 100%;
+    background-color: #e2e3e5;
+    color: #6c757d;
+    border: none;
+    border-radius: 12px;
+    cursor: not-allowed;
+    margin-bottom: 1.2rem;
+}
+
+.pd-back-link {
+    display: inline-block;
+    color: #7e62b5;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+    .pd-back-link:hover {
+        color: #27113F;
+    }
+
+/* Legacy img class kept for compatibility */
+.product-detail-img {
+    max-height: 500px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+    .product-detail-img:hover {
+        transform: scale(1.05);
+    }
+
+@media (max-width: 991px) {
+    .pd-img-card {
+        min-height: 320px;
+        position: static;
+    }
+}

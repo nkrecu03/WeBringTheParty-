@@ -1,45 +1,121 @@
 ﻿@model DataAccessLayer.Entities.ProductModel
 @{
     ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container my-5">
-    <div class="row g-5 align-items-center">
+<div class="pd-page">
+    <div class="container">
 
-        <!-- LEFT: Product Image -->
-        <div class="col-md-6 text-center">
-            <img src="@Url.Content("~/product_images/" + Model.ImageUrl)"
-                 class="img-fluid rounded shadow-lg product-detail-img"
-                 alt="@Model.Name" />
-        </div>
+        <!-- Breadcrumb -->
+        <nav class="pd-breadcrumb">
+            <a href="/">Home</a>
+            <span>›</span>
+            <a href="/Product/ShopAll">Shop All</a>
+            <span>›</span>
+            <span>@Model.Name</span>
+        </nav>
 
-        <!-- RIGHT: Product Info -->
-        <div class="col-md-6">
-            <h2 class="fw-bold mb-5">@Model.Name</h2>
+        <div class="row g-5 align-items-start">
 
-            <p class="text-success fs-3 fw-bold mb-4">$@Model.Price</p>
-
-            <p class="text-muted mb-4">@Model.Description</p>
-
-            <p class="mb-4"><strong>Quantity Available:</strong> @Model.QuantityAvailable</p>
-
-            <form asp-controller="Product" asp-action="AddToCart" method="post">
-                <input type="hidden" name="productId" value="@Model.ProductID" />
-
-                <div class="d-flex gap-2 mb-4">
-                    <input type="number"
-                           name="quantity"
-                           min="1"
-                           max="@Model.QuantityAvailable"
-                           value="1"
-                           class="form-control w-25">
-
-                    <button type="submit" class="btn btn-dark px-4">Add to Cart</button>
+            <!-- LEFT: Image -->
+            <div class="col-lg-6">
+                <div class="pd-img-card">
+                    <img src="@Url.Content("~/product_images/" + Model.ImageUrl)"
+                         alt="@Model.Name"
+                         class="pd-img" />
                 </div>
-            </form>
+            </div>
 
-            <a asp-action="ShopAll" class="btn btn-dark btn-outline-secondary">← Back to Shop</a>
+            <!-- RIGHT: Info -->
+            <div class="col-lg-6">
+                <div class="pd-info">
+
+                    <!-- Name -->
+                    <h1 class="pd-name">@Model.Name</h1>
+
+                    <!-- Price -->
+                    <div class="pd-price-row">
+                        <span class="pd-price">$@Model.Price</span>
+                        @if (Model.QuantityAvailable > 0)
+                        {
+                            <span class="pd-stock-badge pd-in-stock">In Stock</span>
+                        }
+                        else
+                        {
+                            <span class="pd-stock-badge pd-out-of-stock">Out of Stock</span>
+                        }
+                    </div>
+
+                    <hr class="pd-divider" />
+
+                    <!-- Description -->
+                    <p class="pd-description">@Model.Description</p>
+
+                    <hr class="pd-divider" />
+
+                    <!-- Stock count -->
+                    <div class="pd-meta-row">
+                        <span class="pd-meta-label">Available</span>
+                        <span class="pd-meta-value">@Model.QuantityAvailable units</span>
+                    </div>
+
+                    <!-- Add to cart -->
+                    @if (Model.QuantityAvailable > 0)
+                    {
+                        <form asp-controller="Product" asp-action="AddToCart" method="post" class="pd-form">
+                            <input type="hidden" name="productId" value="@Model.ProductID" />
+
+                            <div class="pd-qty-row">
+                                <div class="pd-qty-wrap">
+                                    <label class="pd-meta-label mb-1 d-block">Quantity</label>
+                                    <div class="pd-qty-control">
+                                        <button type="button" class="pd-qty-btn" onclick="changeQty(-1)">−</button>
+                                        <input type="number"
+                                               name="quantity"
+                                               id="qtyInput"
+                                               min="1"
+                                               max="@Model.QuantityAvailable"
+                                               value="1"
+                                               class="pd-qty-input" />
+                                        <button type="button" class="pd-qty-btn" onclick="changeQty(1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-purple pd-add-btn">
+                                Add to Cart
+                            </button>
+
+                        </form>
+                    }
+                    else
+                    {
+                        <button class="btn pd-add-btn pd-disabled-btn" disabled>
+                            Out of Stock
+                        </button>
+                    }
+
+                    <!-- Back link -->
+                    <a href="/Product/ShopAll" class="pd-back-link">← Back to Shop</a>
+
+                </div>
+            </div>
+
         </div>
- 
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function changeQty(delta) {
+            const input = document.getElementById('qtyInput');
+            const max   = parseInt(input.max);
+            const min   = parseInt(input.min);
+            let val     = parseInt(input.value) + delta;
+            if (val < min) val = min;
+            if (val > max) val = max;
+            input.value = val;
+        }
+    </script>
+}

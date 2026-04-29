@@ -15,6 +15,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
+<!-- ── Add to cart toast ── -->
+@if (TempData["CartToast"] != null)
+{
+    <div class="cart-toast" id="cartToast">
+        <span class="cart-toast-icon">🛒</span>
+        <span>@TempData["CartToast"]</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toast = document.getElementById('cartToast');
+            setTimeout(() => toast.classList.add('cart-toast-show'), 100);
+            setTimeout(() => toast.classList.remove('cart-toast-show'), 3000);
+        });
+    </script>
+}
+
 <body class="@ViewData["BodyClass"]">
     <!--Insert Header-->
     @await Html.PartialAsync("_Header")
@@ -23,11 +40,7 @@
         @RenderBody()
     </main>    
 
-    <footer class=" footer-all border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - WeBringTheParty_ - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    @await Html.PartialAsync("_Footer")
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

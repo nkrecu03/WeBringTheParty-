@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DataAccessLayer.Entities.RentalItemModel>
+
+@{
+    ViewData["Title"] = "Rental Items";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Rental Items</h1>
+
+<p>
+    <a asp-action="CreateRentalItem" class="btn btn-primary">+ Create New Rental Item</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price / Day</th>
+            <th>Delivery Fee</th>
+            <th>Image</th>
+            <th>Key Features</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>$@item.RentalPricePerDay</td>
+                <td>$@item.DeliveryFee</td>
+                <td>@item.ImageUrl</td>
+                <td>@item.KeyFeatures</td>
+                <td>@item.IsActive</td>
+                <td>
+                    <a asp-action="EditRentalItem" asp-route-id="@item.RentalItemID">Edit</a> |
+                    <a asp-action="DeleteRentalItem" asp-route-id="@item.RentalItemID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -18,6 +18,8 @@ namespace DataAccessLayer.Data
         public DbSet<CartItemModel> CartItems { get; set; }
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<OrderItemModel> OrderItems { get; set; }
-
+        public DbSet<RentalItemModel> RentalItems { get; set; }
+        public DbSet<RentalBookingModel> RentalBookings { get; set; }
+        public DbSet<ContactMessageModel> ContactMessages { get; set; }
     }
 }

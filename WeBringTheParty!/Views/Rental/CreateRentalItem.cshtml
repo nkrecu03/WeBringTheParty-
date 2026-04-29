@@ -1,0 +1,72 @@
+﻿@model DataAccessLayer.Entities.RentalItemModel
+
+@{
+    ViewData["Title"] = "Create Rental Item";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Create Rental Item</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="CreateRentalItem" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="KeyFeatures" class="control-label"></label>
+                <textarea asp-for="KeyFeatures" class="form-control" rows="4"
+                          placeholder="Dimensions: 10x10 ft | Color: White | Capacity: 20 guests"></textarea>
+                <small class="text-muted">Separate each feature with a pipe character <strong>|</strong></small>
+                <span asp-validation-for="KeyFeatures" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="RentalPricePerDay" class="control-label"></label>
+                <input asp-for="RentalPricePerDay" class="form-control" />
+                <span asp-validation-for="RentalPricePerDay" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DeliveryFee" class="control-label"></label>
+                <input asp-for="DeliveryFee" class="form-control" />
+                <span asp-validation-for="DeliveryFee" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="ImageFile">Item Image</label>
+                <input type="file" class="form-control" id="ImageFile" name="ImageFile" accept="image/*" />
+                <small class="text-muted">Upload an image for this rental item.</small>
+            </div>
+
+            <div class="form-group form-check mb-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> Active
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="AdminIndex" class="btn btn-secondary ms-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

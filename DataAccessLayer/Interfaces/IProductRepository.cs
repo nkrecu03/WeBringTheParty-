@@ -14,5 +14,6 @@ namespace DataAccessLayer.Interfaces
         Task<ProductModel> GetProductByIdAsync(int ProductID);
         Task DeleteProductAsync(int ProductID);
         Task EditProductAsync(ProductModel product);
+        Task<IEnumerable<ProductModel>> GetBestSellersAsync(int count);
     }
 }

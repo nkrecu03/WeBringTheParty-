@@ -139,18 +139,17 @@ namespace WeBringTheParty_.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId, int quantity = 1)
+        public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
-            // Get User ID from Session
             var userIdString = HttpContext.Session.GetString("UserID");
-            if (string.IsNullOrEmpty(userIdString)) return RedirectToAction("Login", "Account");
+            if (string.IsNullOrEmpty(userIdString))
+                return RedirectToAction("Login", "Account");
 
             int userId = int.Parse(userIdString);
+            await cartService.AddToCartAsync(userId, productId, quantity);
 
-            // Call the SERVICE, not the repository
-            await cartService.AddItemToCartAsync(userId, productId, quantity);
-
-            return Redirect(Request.Headers["Referer"].ToString());
+            TempData["CartToast"] = "Added to cart!";
+            return RedirectToAction("ProductDetails", new { id = productId });
         }
     }
 }
