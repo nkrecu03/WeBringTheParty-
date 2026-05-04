@@ -1,7 +1,60 @@
-﻿
-<h2>Welcome @ViewBag.FirstName!</h2>
+﻿@{
+    ViewData["Title"] = "Welcome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<form asp-action="Logout" method="post">
-    <button type="submit">Logout</button>
-</form>
+@{
+    var firstName = Context.Session.GetString("FirstName");
+}
 
+<div class="welcome-page">
+
+    <!-- Background image -->
+    <div class="welcome-bg">
+        <img src="~/images/purple_disco.png" alt="" class="welcome-bg-img" />
+        <div class="welcome-bg-overlay"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="welcome-content">
+
+        <div class="welcome-card">
+
+            <!-- Confetti dots decoration -->
+            <div class="welcome-dots">
+                <span style="background:#f7c948; top:12px; left:18px;"></span>
+                <span style="background:#e8637a; top:8px; left:52px;"></span>
+                <span style="background:#7ed6c8; top:18px; left:86px;"></span>
+                <span style="background:#c9a6e8; top:6px; right:48px;"></span>
+                <span style="background:#f7c948; top:14px; right:18px;"></span>
+            </div>
+
+            <div class="welcome-emoji">🎉</div>
+
+            <h1 class="welcome-title">
+                Welcome back,<br>
+                <span class="welcome-name">@firstName!</span>
+            </h1>
+
+            <p class="welcome-subtitle">
+                Ready to make your next event unforgettable?<br>
+                Let's get the party started.
+            </p>
+
+            <div class="welcome-actions">
+                <a href="/Product/ShopAll" class="btn btn-welcome-primary">Shop Products</a>
+                <a href="/Rental/Index" class="btn btn-welcome-outline">Browse Rentals</a>
+            </div>
+
+            <div class="welcome-links">
+                <a href="/Order/History">View My Orders</a>
+                <span class="welcome-divider">·</span>
+                <a href="/Cart/Index">My Cart</a>
+                <span class="welcome-divider">·</span>
+                <a href="/">Go Home</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>

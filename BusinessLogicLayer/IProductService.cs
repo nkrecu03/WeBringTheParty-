@@ -10,6 +10,10 @@ namespace BusinessLogicLayer
     public interface IProductService
     {
         Task<IEnumerable<ProductModel>> GetProductsAsync();
-
+        Task CreateProductAsync(ProductModel product);
+        Task<ProductModel> GetProductByIdAsync(int id);
+        Task<bool> DeleteProductAsync(int id);
+        Task EditProductAsync(ProductModel product);
+        Task<IEnumerable<ProductModel>> GetBestSellersAsync(int count);
     }
 }

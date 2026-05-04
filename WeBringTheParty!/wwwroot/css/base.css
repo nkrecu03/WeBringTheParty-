@@ -1,0 +1,166 @@
+/* ══════════════════════════════════════════
+   BASE — resets, variables, shared utilities
+══════════════════════════════════════════ */
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* ── Shared utilities ── */
+.admin-container {
+    margin-top: 0px;
+}
+
+.footer-all {
+    background-color: white;
+}
+
+.page-margin {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: calc(var(--top-bar-height, 40px) + var(--navbar-height, 100px));
+    margin-bottom: 10%;
+}
+
+/* ── Shared section titles ── */
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #27113F;
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    color: #6c757d;
+    font-size: 1.05rem;
+    margin-bottom: 0;
+}
+
+.section-eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #7e62b5;
+    margin-bottom: 10px;
+}
+
+/* ── Buttons ── */
+.btn-purple {
+    color: white;
+    background-color: #27113F;
+    border: 2px solid #27113F;
+    border-radius: 50px;
+    transition: all 0.2s ease;
+}
+
+    .btn-purple:hover {
+        background-color: #7e62b5;
+        border-color: #7e62b5;
+        color: white;
+    }
+
+    .btn-purple:focus,
+    .btn-purple:active,
+    .btn-purple:focus-visible {
+        outline: 2px solid gray !important;
+        box-shadow: 0 0 0 0.2rem rgba(128,128,128,0.25) !important;
+        color: white;
+    }
+
+.btn-purple2 {
+    color: #27113F;
+    background-color: white;
+    border: 2px solid #27113F;
+    border-radius: 50px;
+    transition: all 0.2s ease;
+}
+
+    .btn-purple2:hover {
+        background-color: #27113F;
+        border-color: #27113F;
+        color: white;
+    }
+
+.btn-dark {
+    background-color: #27113F;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+    .btn-dark:hover {
+        background-color: #7e62b5;
+        color: #fff;
+    }
+
+    .btn-dark:focus,
+    .btn-dark:active,
+    .btn-dark:focus-visible {
+        outline: 2px solid gray !important;
+        box-shadow: 0 0 0 0.2rem rgba(128,128,128,0.25) !important;
+    }
+
+/* Price */
+.text-success {
+    color: #28a745 !important;
+}
+
+/* Number input */
+input[type=number] {
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+/* ── Cart toast ── */
+.cart-toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background-color: #27113F;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 32px rgba(39,17,63,0.35);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.cart-toast-show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cart-toast-icon {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 575px) {
+    .cart-toast {
+        bottom: 20px;
+        right: 16px;
+        left: 16px;
+        justify-content: center;
+    }
+}

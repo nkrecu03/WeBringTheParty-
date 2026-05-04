@@ -1,0 +1,247 @@
+﻿@model DataAccessLayer.Entities.RentalItemModel
+@{
+    ViewData["Title"] = "Check Availability — " + Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int year = ViewBag.Year;
+    int month = ViewBag.Month;
+    var unavailable = (Dictionary<DateTime, List<string>>)ViewBag.UnavailableSlots;
+    var allSlots = (List<string>)ViewBag.AllTimeSlots;
+
+    var firstDay = new DateTime(year, month, 1);
+    int daysInMonth = DateTime.DaysInMonth(year, month);
+    int startDow = (int)firstDay.DayOfWeek;
+
+    var prevMonth = firstDay.AddMonths(-1);
+    var nextMonth = firstDay.AddMonths(1);
+
+    bool IsFullyUnavailable(DateTime d)
+    {
+        if (!unavailable.ContainsKey(d)) return false;
+        var slots = unavailable[d];
+        return slots.Contains("Full Day (8AM\u20135PM)") || allSlots.All(s => slots.Contains(s));
+    }
+}
+
+<div class="container my-5">
+    <div class="row g-4 align-items-start">
+
+        <!-- LEFT CARD: Item Details -->
+        <div class="col-lg-5">
+            <div class="card rental-detail-card shadow-sm h-100">
+                <img src="@Url.Content("~/product_images/" + Model.ImageUrl)"
+                     class="card-img-top"
+                     alt="@Model.Name"
+                     style="max-height:280px; object-fit:cover;" />
+
+                <div class="card-body">
+                    <h3 class="fw-bold">@Model.Name</h3>
+                    <p class="text-success fs-4 fw-bold">$@Model.RentalPricePerDay <span class="fs-6 text-muted fw-normal">/ day</span></p>
+
+                    @{
+                        bool itemAvailableToday = !IsFullyUnavailable(DateTime.Today);
+                    }
+                    @if (itemAvailableToday)
+                    {
+                        <span class="badge bg-success mb-3 px-3 py-2">Available</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary mb-3 px-3 py-2">Unavailable Today</span>
+                    }
+
+                    <p class="text-muted">@Model.Description</p>
+
+                    <hr />
+                    <h6 class="fw-bold mb-2">Key Features</h6>
+                    <ul class="rental-features-list">
+                        @foreach (var feature in (Model.KeyFeatures ?? "").Split('|', StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <li>@feature.Trim()</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT CARD: Calendar + Booking -->
+        <div class="col-lg-7">
+            <div class="card rental-detail-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">Select a Date</h5>
+
+                    <!-- Month navigation -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a asp-action="CheckAvailability"
+                           asp-route-id="@Model.RentalItemID"
+                           asp-route-year="@prevMonth.Year"
+                           asp-route-month="@prevMonth.Month"
+                           class="btn btn-sm btn-outline-secondary">&larr;</a>
+
+                        <strong>@firstDay.ToString("MMMM yyyy")</strong>
+
+                        <a asp-action="CheckAvailability"
+                           asp-route-id="@Model.RentalItemID"
+                           asp-route-year="@nextMonth.Year"
+                           asp-route-month="@nextMonth.Month"
+                           class="btn btn-sm btn-outline-secondary">&rarr;</a>
+                    </div>
+
+                    <!-- Calendar grid -->
+                    <div class="rental-calendar">
+                        <div class="calendar-header">
+                            <span>Sun</span><span>Mon</span><span>Tue</span>
+                            <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid">
+                            @for (int pad = 0; pad < startDow; pad++)
+                            {
+                                <div class="cal-cell empty"></div>
+                            }
+                            @for (int day = 1; day <= daysInMonth; day++)
+                            {
+                                var d = new DateTime(year, month, day);
+                                bool past = d.Date < DateTime.Today;
+                                bool full = IsFullyUnavailable(d);
+                                string cls = past ? "cal-cell disabled" : (full ? "cal-cell unavailable" : "cal-cell available");
+                                string dataDate = d.ToString("yyyy-MM-dd");
+                                <div class="@cls" data-date="@dataDate" onclick="selectDate(this)">@day</div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="d-flex gap-3 mt-2 mb-4 small">
+                        <span><span class="legend-dot bg-success"></span> Available</span>
+                        <span><span class="legend-dot bg-secondary"></span> Unavailable</span>
+                        <span><span class="legend-dot bg-light border"></span> Past</span>
+                    </div>
+
+                    <!-- Time slot section -->
+                    <div id="slotSection" style="display:none;">
+                        <hr />
+                        <h6 class="fw-bold mb-3">Available Time Slots for <span id="selectedDateLabel"></span></h6>
+                        <div id="slotButtons" class="d-flex gap-2 flex-wrap mb-4"></div>
+                    </div>
+
+                    <!-- Booking form -->
+                    <div id="bookingSection" style="display:none;">
+                        <hr />
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold">Rental Price:</span>
+                            <span class="text-success fw-bold fs-5">$@Model.RentalPricePerDay</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="fw-bold">Delivery Fee:</span>
+                            <span>$@Model.DeliveryFee</span>
+                        </div>
+
+                        <form method="post" asp-action="Book" asp-controller="Rental">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="rentalItemId" value="@Model.RentalItemID" />
+                            <input type="hidden" name="rentalDate" id="hiddenDate" />
+                            <input type="hidden" name="timeSlot" id="hiddenSlot" />
+                            <button type="submit" class="btn btn-purple w-100 py-2 fw-bold">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success mt-3">@TempData["Success"]</div>
+                    }
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger mt-3">@TempData["Error"]</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const unavailableSlots = @Html.Raw(
+                    System.Text.Json.JsonSerializer.Serialize(
+                            ((Dictionary<DateTime, List<string>>)ViewBag.UnavailableSlots)
+                                    .ToDictionary(k => k.Key.ToString("yyyy-MM-dd"), v => v.Value)
+                    )
+            );
+
+    const allSlots = @Html.Raw(
+                System.Text.Json.JsonSerializer.Serialize((List<string>)ViewBag.AllTimeSlots)
+        );
+
+    let selectedDate = null;
+    let selectedSlot = null;
+
+        function selectDate(el) {
+            if (el.classList.contains('disabled') || el.classList.contains('unavailable')) return;
+
+            document.querySelectorAll('.cal-cell.selected').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+
+            selectedDate = el.getAttribute('data-date');
+            selectedSlot = null;
+
+            document.getElementById('selectedDateLabel').textContent =
+                new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-US', {
+                    weekday: 'long', month: 'long', day: 'numeric'
+                });
+
+            document.getElementById('slotSection').style.display = 'block';
+            document.getElementById('bookingSection').style.display = 'none';
+
+            renderSlots(selectedDate);
+        }
+
+                function renderSlots(dateStr) {
+            const takenSlots    = unavailableSlots[dateStr] || [];
+            const container     = document.getElementById('slotButtons');
+            container.innerHTML = '';
+
+            const FULL_DAY = 'Full Day (8AM\u20135PM)';
+
+            const fullDayBooked = takenSlots.includes(FULL_DAY);
+            const anySlotBooked = takenSlots.length > 0;
+
+            allSlots.forEach(slot => {
+                let blocked = false;
+
+                if (fullDayBooked) {
+                    blocked = true;
+                } else if (slot === FULL_DAY && anySlotBooked) {
+                    blocked = true;
+                } else if (takenSlots.includes(slot)) {
+                    blocked = true;
+                }
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = slot;
+                btn.className = blocked
+                    ? 'btn btn-secondary btn-sm disabled-slot'
+                    : 'btn btn-success btn-sm slot-btn';
+                btn.disabled = blocked;
+
+                if (!blocked) {
+                    btn.onclick = () => selectSlot(slot, btn);
+                }
+
+                container.appendChild(btn);
+            });
+        }
+
+        function selectSlot(slot, btn) {
+            document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active', 'btn-dark'));
+            btn.classList.add('active', 'btn-dark');
+
+            selectedSlot = slot;
+            document.getElementById('hiddenDate').value = selectedDate;
+            document.getElementById('hiddenSlot').value = selectedSlot;
+            document.getElementById('bookingSection').style.display = 'block';
+        }
+    </script>
+}

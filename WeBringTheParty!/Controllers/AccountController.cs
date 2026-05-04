@@ -24,19 +24,37 @@ namespace WeBringTheParty_.Controllers
         {
             var user = await userService.LoginAsync(model.Email, model.Password);
 
-            if (user != null)
+            //verify email and password is valid for logging in
+            if (user == null || !user.isActive)
             {
-                TempData["FirstName"] = user.FirstName;
-                return RedirectToAction("Welcome");
+                ViewBag.Error = "Invalid email or password";
+                return View(model);
             }
 
-            ViewBag.Error = "Invalid email or password";
-            return View(model);
+            //set user's data for login session
+            HttpContext.Session.SetString("FirstName", user.FirstName);
+            HttpContext.Session.SetString("LastName", user.LastName);
+            HttpContext.Session.SetString("Email", user.EmailAddress);
+            HttpContext.Session.SetString("Phone", user.PhoneNumber ?? "");
+            HttpContext.Session.SetString("UserID", user.UserID.ToString());
+            HttpContext.Session.SetString("Role", user.Role);
+
+            //if user is admin, send to admin dashboard
+            //send customers to welcome page
+            if (user.Role == "Admin")
+            {
+                return RedirectToAction("Dashboard", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("Welcome");
+            }
         }
+
 
         public IActionResult Welcome()
         {
-            var firstName = TempData["FirstName"] as string;
+            var firstName = HttpContext.Session.GetString("FirstName");
 
             if (string.IsNullOrEmpty(firstName))
             {
@@ -50,35 +68,9 @@ namespace WeBringTheParty_.Controllers
         [HttpPost]
         public IActionResult Logout()
         {
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
-    
 
-
-
-
-
-
-
-
-
-
-        /*
-        [HttpPost]
-        public IActionResult Login(Models.LoginViewModel model)
-        {
-            return RedirectToAction("Welcome", new {username = model.Email });
-        }
-
-        [HttpPost]
-        public IActionResult Logout() { 
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult Welcome(string email)
-        {
-            ViewBag.Username = email;
-            return View();
-        } */
     }
 }

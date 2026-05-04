@@ -1,0 +1,108 @@
+/* ══════════════════════════════════════════
+   RENTALS — catalog cards, calendar, check availability
+══════════════════════════════════════════ */
+
+.rental-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: none;
+}
+
+.rental-detail-card {
+    border-radius: 14px;
+    border: none;
+}
+
+.rental-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .rental-features-list li::before {
+        content: "✓ ";
+        color: #6f42c1;
+        font-weight: bold;
+    }
+
+/* Calendar */
+.rental-calendar {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+    .calendar-header span {
+        text-align: center;
+        padding: 8px 0;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #6c757d;
+    }
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.cal-cell {
+    text-align: center;
+    padding: 10px 4px;
+    font-size: 0.875rem;
+    border: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+    .cal-cell.available {
+        background: #d1e7dd;
+        color: #0a3622;
+    }
+
+        .cal-cell.available:hover {
+            background: #a3cfbb;
+        }
+
+    .cal-cell.unavailable {
+        background: #e2e3e5;
+        color: #6c757d;
+        cursor: not-allowed;
+    }
+
+    .cal-cell.disabled {
+        background: #fff;
+        color: #ccc;
+        cursor: default;
+    }
+
+    .cal-cell.empty {
+        background: transparent;
+        border: none;
+    }
+
+    .cal-cell.selected {
+        background: #6f42c1 !important;
+        color: #fff !important;
+        font-weight: bold;
+    }
+
+.legend-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.disabled-slot {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

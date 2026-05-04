@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+@model IEnumerable<DataAccessLayer.Entities.OrderModel>
+
+<div class="container my-5">
+
+    <!-- PAGE TITLE -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">All Orders</h2>
+    </div>
+
+    <!-- TOTAL REVENUE -->
+    <div class="mb-4">
+        <h5 class="text-muted">Total Revenue</h5>
+        <h3 class="fw-bold text-success">
+            $@Model.Sum(o => o.OrderItems.Sum(oi => oi.Product.Price * oi.Quantity))
+        </h3>
+    </div>
+
+    <!-- NO ORDERS -->
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <p class="text-muted">No orders have been placed yet.</p>
+        </div>
+    }
+    else
+    {
+        <!-- LOOP THROUGH ALL ORDERS -->
+        @foreach (var order in Model)
+        {
+            <div class="card shadow-sm mb-4">
+
+                <!-- HEADER -->
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <div>
+                        <div>
+                            <span class="text-muted">Customer:</span>
+                            <span class="fw-bold">@order.User.FirstName @order.User.LastName (@order.UserId)</span>
+                        </div>
+                        <div>
+                            <span class="text-muted">Order Placed:</span>
+                            <span class="fw-bold">
+                                @order.Date.ToString("MMMM dd, yyyy")
+                            </span>
+                        </div>
+                    </div>
+
+                    <span class="badge bg-dark">
+                        Order #@order.OrderId
+                    </span>
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body">
+                    <div class="row">
+
+                        <!-- ITEMS -->
+                        <div class="col-md-9">
+                            @foreach (var item in order.OrderItems)
+                            {
+                                <div class="d-flex justify-content-between border-bottom py-2">
+                                    <span>
+                                        @item.Product.Name (x @item.Quantity)
+                                    </span>
+                                    <span class="text-muted">
+                                        $@(item.Product.Price* item.Quantity)
+                                    </span>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- TOTAL -->
+                        <div class="col-md-3 text-end d-flex align-items-center justify-content-end">
+                            <div>
+                                <div class="small text-muted">Order Total</div>
+                                <div class="h5 fw-bold">
+                                    $@order.OrderItems.Sum(oi => oi.Product.Price * oi.Quantity)
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+</div>

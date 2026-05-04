@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DataAccessLayer.Entities.RentalItemModel>
+@{
+    ViewData["Title"] = "Party Rentals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-hero-banner">
+    <img src="~/images/orange_disco.jpg" alt="" class="page-hero-banner-img" />
+    <div class="page-hero-banner-overlay"></div>
+    <div class="page-hero-banner-text">
+        <h1>Party Rentals</h1>
+    </div>
+</div>
+
+<div class="container mt-5">
+
+
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="product-card h-100 d-flex flex-column">
+
+                    <div class="product-card-img-wrap">
+                        <img src="@Url.Content("~/product_images/" + item.ImageUrl)"
+                             alt="@item.Name"
+                             class="product-card-img" />
+                    </div>
+
+                    <div class="bs-card-body d-flex flex-column flex-grow-1">
+                        <h5 class="bs-card-name">@item.Name</h5>
+                        <p class="bs-card-price">
+                            $@item.RentalPricePerDay
+                            <span class="bs-card-price-sub">/ day</span>
+                        </p>
+                        <p class="bs-card-delivery">+ $@item.DeliveryFee delivery</p>
+
+                        <a asp-controller="Rental"
+                           asp-action="CheckAvailability"
+                           asp-route-id="@item.RentalItemID"
+                           class="btn btn-purple mt-auto">
+                            Check Availability
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

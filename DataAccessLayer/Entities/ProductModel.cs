@@ -12,13 +12,17 @@ namespace DataAccessLayer.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int productID { get; set; }
+        public int ProductID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public int QuantityAvailable { get; set; }
+
+        public string ImageUrl { get; set; }
+        public bool isActive { get; set; }
+        
 
     }
 }

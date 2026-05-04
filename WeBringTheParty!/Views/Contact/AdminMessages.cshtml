@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DataAccessLayer.Entities.ContactMessageModel>
+
+@{
+    ViewData["Title"] = "Contact Messages";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Contact Messages</h1>
+    <span class="badge bg-purple-badge fs-6">
+        @Model.Count(m => m.Status == "Unread") Unread
+    </span>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No messages yet.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="admin-messages-thead">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Received</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var msg in Model)
+                {
+                    <tr class="@(msg.Status == "Unread" ? "admin-msg-unread" : "")">
+                        <td class="text-muted small">@msg.MessageID</td>
+                        <td class="fw-semibold">@msg.FirstName @msg.LastName</td>
+                        <td class="text-muted small">@msg.Email</td>
+                        <td>@msg.Subject</td>
+                        <td class="text-muted small">@msg.SentAt.ToLocalTime().ToString("MMM d, yyyy h:mm tt")</td>
+                        <td>
+                            @if (msg.Status == "Unread")
+                            {
+                                <span class="badge bg-danger">Unread</span>
+                            }
+                            else if (msg.Status == "Read")
+                            {
+                                <span class="badge bg-secondary">Read</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Replied</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="ViewMessage"
+                               asp-route-id="@msg.MessageID"
+                               class="btn btn-sm btn-purple">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

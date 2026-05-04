@@ -1,20 +1,73 @@
-﻿@model DataAccessLayer.Entities.LoginModel
-
-<h2>Login</h2>
-
-<form asp-action="Login" method="post">
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" style="margin-left: 100px;" />
-    </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" style="margin-left: 72px;" />
-    </div>
-    <button type="submit">Login</button>
-</form>
-
-@if (ViewBag.Error != null)
-{
-    <p style="color:red">@ViewBag.Error</p>
+﻿@{
+    ViewData["BodyClass"] = "login-page";
 }
+
+@model DataAccessLayer.Entities.LoginModel
+
+
+<div class="container mt-5 d-flex justify-content-center ">
+    <div class="login-container row justify-content-center">
+
+        <!-- Login Card -->
+        <div class="col-12 login-card d-flex">
+            <div class="form-input p-4 w-100">
+                <h2 class="create-account-text text-center mb-4">Sign In</h2>
+
+                <form asp-action="Login" method="post">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" placeholder="Email" />
+                        <label asp-for="Email">Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" class="form-control" placeholder="Password" />
+                        <label asp-for="Password">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-6 mx-auto">
+                            <button type="submit" class="btn btn-primary w-100 rounded-pill create-account-btn">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Divider Line -->
+        <div class="col-12 d-flex justify-content-center">
+            <hr class="divider-line">
+        </div>
+
+        <!-- Create Account Card -->
+        <div class="col-12 login-card d-flex">
+            <div class="form-input p-4 w-100 text-center">
+                <h2 class="create-account-text mb-3">New Here?</h2>
+                <p class="mb-4">Create an account to get started and enjoy all features!</p>
+                <a asp-controller="User" asp-action="CreateUser" class="btn btn-primary w-50 rounded-pill create-account-btn">
+                    Create Account
+                </a>
+            </div>
+        </div>
+    
+
+    </div>
+</div>
+
+  
+
+
+
+                
+
+
+
+    @if (ViewBag.Error != null)
+    {
+        <p style="color:red">@ViewBag.Error</p>
+    }
+
+</div>

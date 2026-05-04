@@ -1,0 +1,234 @@
+/* ══════════════════════════════════════════
+   HEADER & NAV
+══════════════════════════════════════════ */
+
+:root {
+    --top-bar-height: 90px;
+    --navbar-height: 0px;
+}
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.top-bar {
+    height: var(--top-bar-height);
+    background-color: #fff;
+    width: 100%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+}
+
+.header-logo {
+    height: 64px;
+    width: auto;
+    display: block;
+}
+
+/* Center nav links */
+.top-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.btn-header {
+    padding: 10px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.nav-button {
+    text-decoration: none;
+    color: #27113F;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.4px;
+    padding: 4px 0;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+    .nav-button::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #7e62b5;
+        transition: width 0.25s ease;
+    }
+
+    .nav-button:hover {
+        color: #7e62b5;
+    }
+
+        .nav-button:hover::after {
+            width: 100%;
+        }
+
+/* Search bar */
+.search-bar {
+    background-color: #f0edf5;
+    width: 220px;
+    height: 38px;
+    border-radius: 50px;
+    border: 1px solid #ddd;
+    padding: 0 16px;
+    font-size: 0.875rem;
+    transition: width 0.3s ease, box-shadow 0.2s;
+}
+
+    .search-bar:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(126,98,181,0.3);
+        width: 280px;
+    }
+
+/* Hamburger */
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+    .hamburger-btn:hover {
+        background-color: #f0edf5;
+    }
+
+    .hamburger-btn span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #27113F;
+        border-radius: 2px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform-origin: center;
+    }
+
+    .hamburger-btn.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger-btn.active span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    .hamburger-btn.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+/* Mobile drawer */
+.mobile-drawer {
+    position: fixed;
+    top: var(--top-bar-height);
+    right: 0;
+    width: 300px;
+    max-width: 90vw;
+    height: calc(100vh - var(--top-bar-height));
+    background-color: #27113F;
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+    .mobile-drawer.open {
+        transform: translateX(0);
+    }
+
+.mobile-drawer-inner {
+    padding: 24px 20px;
+}
+
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-nav-link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: color 0.2s, padding-left 0.2s;
+}
+
+    .mobile-nav-link:hover {
+        color: #c9a6e8;
+        padding-left: 8px;
+    }
+
+.mobile-drawer .btn-purple2 {
+    color: #fff;
+    background-color: transparent;
+    border: 2px solid #fff;
+}
+
+    .mobile-drawer .btn-purple2:hover {
+        background-color: rgba(255,255,255,0.15);
+        color: #fff;
+    }
+
+/* Backdrop */
+.drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+    .drawer-backdrop.show {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+/* Page content offset */
+.page-content {
+    padding-top: var(--top-bar-height);
+    margin-bottom: 60px;
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+    .search-bar {
+        width: 160px;
+    }
+
+        .search-bar:focus {
+            width: 200px;
+        }
+}
+
+@media (max-width: 767px) {
+    .header-logo {
+        height: 50px;
+    }
+
+    :root {
+        --top-bar-height: 66px;
+    }
+}
